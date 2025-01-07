@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 export const metadata: Metadata = {
   title: {
     default: 'ねこかわいい',
-    template: '%s | Next.js App Router',
+    template: '%s | ねこぺーじ',
   },
   metadataBase: new URL('https://app-router.vercel.app'),
   description: 'ねこがかわいいページ',
@@ -24,11 +24,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" className="[color-scheme:dark]">
-      <body className="overflow-y-scroll bg-gray-1100 bg-[url('/grid.svg')] pb-36">
-        <GlobalNav />
+    // <html lang="ja" className="[color-scheme:dark]">
+    <html lang="ja">
+    <body className="overflow-y-scroll bg-gray-1100 bg-[url('/grid.svg')] pb-36">
+        <div className='lg:flex'>
+          <GlobalNav />
 
-        <div className="lg:pl-72">
+        {/* <div className="lg:pl-72"> */}
           <div className="mx-auto max-w-4xl space-y-8 px-2 pt-20 lg:px-8 lg:py-8">
             <div className="rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
               <div className="rounded-lg bg-black">

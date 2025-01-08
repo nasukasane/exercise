@@ -103,4 +103,18 @@ export const demos: { name: string; items: Item[] }[] = [
       },
     ],
   },
+  {
+    name: 'たぬき',
+    items: [
+      {
+        name: 'ポコポコ',
+        slug: 'poko',
+        description: 'すーぱーぽこぽこたぬき',
+      },
+      {
+        name: '無説明',
+        slug: 'silent',
+      },
+    ],
+  },
 ];

@@ -6,6 +6,7 @@ export default {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './ui/**/*.{js,ts,jsx,tsx,mdx}',
+    './problem/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   future: {
     hoverOnlyWhenSupported: true,
@@ -15,6 +16,7 @@ export default {
     extend: {
       // https://vercel.com/design/color
       colors: {
+        
         gray: colors.zinc,
         'gray-1000': 'rgb(17,17,19)',
         'gray-1100': 'rgb(10,10,11)',

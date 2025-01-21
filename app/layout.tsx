@@ -9,13 +9,13 @@ export const metadata: Metadata = {
     default: 'ねこかわいい',
     template: '%s | ねこぺーじ',
   },
-  metadataBase: new URL('https://app-router.vercel.app'),
+  // metadataBase: new URL('https://app-router.vercel.app'),
   description: 'ねこがかわいいページ',
-  openGraph: {
-    title: 'Next.js App Router Playground',
-    description: 'いぬもかわいい',
-    images: [`/api/og?title=Next.js App Router`],
-  },
+  // openGraph: {
+  //   title: 'Next.js App Router Playground',
+  //   description: 'いぬもかわいい',
+  //   images: [`/api/og?title=Next.js App Router`],
+  // },
 };
 
 export default function RootLayout({
@@ -26,7 +26,8 @@ export default function RootLayout({
   return (
     // <html lang="ja" className="[color-scheme:dark]">
     <html lang="ja">
-    <body className="overflow-y-scroll bg-gray-1100 bg-[url('/grid.svg')] pb-36">
+    {/* <body className="overflow-y-scroll bg-gray-1100 bg-[url('/grid.svg')] pb-36"> */}
+    <body className="overflow-y-scroll bg-gray-100 pb-36">
         <GlobalNav />
 
         <div className="lg:pl-72">
@@ -37,8 +38,8 @@ export default function RootLayout({
               </div>
             </div>
 
-            <div className="rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
-              <div className="rounded-lg bg-black p-3.5 lg:p-6">{children}</div>
+            <div className="mt-2 rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
+              <div className="rounded-lg bg-white p-3.5 lg:p-6">{children}</div>
             </div>
             <Byline />
           </div>

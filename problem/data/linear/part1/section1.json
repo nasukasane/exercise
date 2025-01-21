@@ -1,0 +1,37 @@
+{
+  "problems":
+  [
+    {
+      "type": "p1o4",
+      "problemText": "１＋３は？",
+      "answer": 3,
+      "randomize_option": true,
+      "answerFigure": false,
+      "options": ["1", "2", "3", "4"]
+    },
+    {
+      "type": "p1o4",
+      "problemText": "４－１は？",
+      "answer": 1,
+      "randomize_option": true,
+      "answerFigure": false,
+      "options": ["2", "3", "4", "5"]
+    },
+    {
+      "type": "p1o4",
+      "problemText": "３×２は？",
+      "answer": 2,
+      "randomize_option": true,
+      "answerFigure": false,
+      "options": ["1", "5", "6", "15"]
+    },
+    {
+      "type": "p1o4",
+      "problemText": "１２×２は？",
+      "answer": 3,
+      "randomize_option": true,
+      "answerFigure": false,
+      "options": ["1", "5", "2", "6"]
+    }
+  ]
+}

@@ -1,11 +1,12 @@
 'use client';
 
-import { demos, type Item } from '@/lib/demos';
+import { mainMenu, type Item } from '@/lib/main-menu';
 import { NextLogoDark } from '@/ui/next-logo';
 import Link from 'next/link';
 import { useSelectedLayoutSegment } from 'next/navigation';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/solid';
+import { Bars3Icon, HomeIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
+import Image from 'next/image';
 import { useState } from 'react';
 
 export function GlobalNav() {
@@ -13,7 +14,7 @@ export function GlobalNav() {
   const close = () => setIsOpen(false);
 
   return (
-    <div className="fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-black lg:bottom-0 lg:z-auto lg:w-72 lg:border-b-0 lg:border-r lg:border-gray-800">
+    <div className="fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-white lg:bottom-0 lg:z-auto lg:w-72 lg:border-b-0 lg:border-r lg:border-gray-800">
       <div className="flex h-14 items-center px-4 py-4 lg:h-auto">
         <Link
           href="/"
@@ -21,10 +22,11 @@ export function GlobalNav() {
           onClick={close}
         >
           <div className="h-7 w-7 rounded-full">
-            <NextLogoDark />
+            <Image src="/icon.png" alt="アイコン" width={28} height={28}
+              className="rounded-full border-2 border-transparent group-hover:border-blue-500"/>
           </div>
 
-          <h3 className="font-semibold tracking-wide text-gray-400 group-hover:text-gray-50">
+          <h3 className="font-semibold tracking-wide text-gray-800 group-hover:text-gray-50">
             あっぷ　るーたー
           </h3>
         </Link>
@@ -34,7 +36,7 @@ export function GlobalNav() {
         className="group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 lg:hidden"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="font-medium text-gray-100 group-hover:text-gray-400">
+        <div className="font-medium text-gray-800 group-hover:text-gray-1000">
           Menu
         </div>
         {isOpen ? (
@@ -50,15 +52,16 @@ export function GlobalNav() {
           hidden: !isOpen,
         })}
       >
-        <nav className="space-y-6 px-2 pb-24 pt-5">
-          {demos.map((section) => {
+        <nav className="px-2 pb-24 pt-5">
+          {mainMenu.map((section) => {
             return (
               <div key={section.name}>
                 <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400/80">
-                  <div>{section.name}</div>
+                  {/* <div>{section.name}</div> */}
+                  <GlobalNavItem key={section.slug} item={section} close={close} />
                 </div>
 
-                <div className="space-y-1">
+                <div className="px-6">
                   {section.items.map((item) => (
                     <GlobalNavItem key={item.slug} item={item} close={close} />
                   ))}
@@ -87,7 +90,7 @@ function GlobalNavItem({
       onClick={close}
       href={`/${item.slug}`}
       className={clsx(
-        'block rounded-md px-3 py-2 text-sm font-medium hover:text-gray-300',
+        'py-2 block rounded-md text-sm font-medium hover:text-gray-300',
         {
           'text-gray-400 hover:bg-gray-800': !isActive,
           'text-white': isActive,

@@ -1,42 +1,90 @@
 'use client'
 import { useState } from "react";
 import Image from 'next/image';
-import chilene from "./data/chilene.jpg"
-import tima from "./data/tima.png" 
+import chilene from "./image/chilene.jpg"
+import tima from "./image/tima.png"
+import { type Section, type CheckTables, type CheckTable } from "./main"
 
-export type Problem = {
-  type: string;
-  problemText: string;
-  answer: number;
-  randomize_option: boolean;
-  answerFigure: boolean;
-  options: string[];
-};
 
-export function View({ data }: { data: { problems: Problem[] } }) {
+function Checks({checkTable}: {checkTable: CheckTable}){
+  return(
+    <div className="text-xl">
+      {checkTable.map((check, index)=>{
+        if(check==='N'){
+          return(<div key={index} className="inline">-</div>)
+        }else if(check==='C'){
+          return(<div key={index} className="inline text-green-600">o</div>)
+        }else if(check==='W'){
+          return(<div key={index} className="inline text-red-600">x</div>)
+        }
+        return check
+      })}
+    </div>
+  )
+}
+
+export function View({ sections, sectionInit, initCheckTables }: {
+    sections: Section[],
+    sectionInit: number,
+    initCheckTables: CheckTables,
+  } ) {
   const [choice, setChoice] = useState(-1);
   const [problemCount, setProblemCount] = useState(0);
+  const [sectionCount, setSectionCount] = useState(sectionInit);
   const [isShowImage, setIsShowImage] = useState(false);
+  const [checkTables, setCheckTables]=useState(initCheckTables);
   const [isCorrect, setIsCorrect] = useState(false);
 
+  const section = sections[sectionCount]
+  const problem = section.problems[problemCount];
+  const pick = section.pick
+
   const submit = () => {
+    // 答え合わせ
+    const correct = (choice === problem.answer)
+    // checkTable更新
+    setCheckTables(checkTables.map((checkTable, i)=>{
+      if(i===sectionCount){
+        return checkTable.map((check, j)=>{
+          if(j===problemCount){
+            return (correct ? 'C' : 'W');
+          }else{
+            return check;
+          }
+        });
+      }else{
+        return checkTable
+      }
+    }));
+    // 答え更新
+    setIsCorrect(correct);
+    // 画像表示
     setIsShowImage(true);
+    // 後処理
     setTimeout(() => {
+
+      // 問題/区分カウンタ更新
+      if(problemCount < pick-1){
+        setProblemCount(problemCount + 1);
+      }else{
+        setProblemCount(0);
+        setSectionCount(sectionCount + 1)
+      }
+      // 表示取り消し
       setIsShowImage(false);
-      setProblemCount(problemCount + 1);
+      // 回答選択初期化
       setChoice(-1);
-      setIsCorrect(false);
     }, 1000); // 1秒後に非表示
   };
   const choiceAnswer = (index: number) => {
     setChoice(index);
   };
-  const problem = data.problems[problemCount];
+  // const problem = data.problems[problemCount];
   return (
     <div className="relative">
-      {isShowImage && 
+      {isShowImage &&
         <Image
-          src={choice === problem.answer ? chilene : tima}
+          src={isCorrect ? chilene : tima}
           alt="正解画像"
           width={200}
           height={200}
@@ -44,6 +92,8 @@ export function View({ data }: { data: { problems: Problem[] } }) {
         />
       }
       <div className="space-y-8">
+        <p>[{section.name}]、分類{sectionCount+1}、問題{problemCount+1}/{pick}</p>
+        <Checks checkTable={checkTables[sectionCount]}/>
         <p>{problem.problemText}</p>
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">

@@ -1,0 +1,22 @@
+{
+  "problems":
+  [
+    {
+      "type": "p1o4",
+      "problemText": "足し算が可能なのは？",
+      "problemFigure": "test1.png",
+      "answer": 1,
+      "randomizeOption": true,
+      "answerFigure": true,
+      "options": ["test1-1.png","test1-2.png","test1-3.png","test1-4.png"]
+    },
+    {
+      "type": "p1o4",
+      "problemText": "掛け算が可能なのは？",
+      "answer": 3,
+      "randomizeOption": true,
+      "answerFigure": true,
+      "options": ["test2-1.png","test2-2.png","test2-3.png","test2-4.png"]
+    }
+  ]
+}

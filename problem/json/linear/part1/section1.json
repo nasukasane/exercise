@@ -2,36 +2,41 @@
   "problems":
   [
     {
-      "type": "p1o4",
-      "problemText": "１＋３は？",
-      "answer": 3,
+      "pickType": "a",
+      "inputType": "strList",
+      "problemText": "偶数は？",
+      "answer": [0,2,3],
       "randomizeOption": true,
-      "answerFigure": false,
-      "options": ["1", "2", "3", "4"]
+      "options": ["2", "5", "6", "16"]
     },
     {
-      "type": "p1o4",
+      "pickType": "1",
+      "inputType": "numpad",
+      "problemText": "１＋３は？",
+      "answer": 4,
+      "randomizeOption": true
+    },
+    {
+      "pickType": "1",
+      "inputType": "strList",
       "problemText": "４－１は？",
       "answer": 1,
       "randomizeOption": true,
-      "answerFigure": false,
       "options": ["2", "3", "4", "5"]
     },
     {
-      "type": "p1o4",
+      "pickType": "1",
+      "inputType": "numpad",
       "problemText": "３×２は？",
-      "answer": 2,
-      "randomizeOption": true,
-      "answerFigure": false,
-      "options": ["1", "5", "6", "15"]
+      "answer": 6,
+      "randomizeOption": true
     },
     {
-      "type": "p1o4",
-      "problemText": "１２×２は？",
-      "answer": 3,
-      "randomizeOption": true,
-      "answerFigure": false,
-      "options": ["1", "5", "2", "6"]
+      "pickType": "1",
+      "inputType": "numpad",
+      "problemText": "１２/２は？",
+      "answer": 6,
+      "randomizeOption": true
     }
   ]
 }

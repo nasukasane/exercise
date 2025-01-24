@@ -1,12 +1,12 @@
 import { View } from './view'
 
 export type Problem = {
-  type: string;
+  inputType: "strList"|"figList"|"numpad"|"string";
+  pickType?: "a"|"1";
   problemText: string;
-  answer: number;
+  answer: number|number[];
   randomizeOption: boolean;
-  answerFigure: boolean;
-  options: string[];
+  options?: string[];
 };
 
 export type Outline = {
@@ -17,6 +17,8 @@ export type Outline = {
 export type Section = Outline & {
   problems: Problem[];
 }
+
+export type PickSet = Set<number>
 
 // 未回答：N 正解：C 不正解：W ヒントを見たけど正解：H
 export type CheckTables = string[][]

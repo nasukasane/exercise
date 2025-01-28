@@ -1,11 +1,12 @@
 import { View } from './view'
 
 export type Problem = {
-  inputType: "strList"|"figList"|"numpad"|"string";
+  inputType: "strList"|"figList"|"mathJList"|"numpad"|"string";
   pickType?: "a"|"1";
   problemText: string;
+  problemMathJ?: string;
   answer: number|number[];
-  randomizeOption: boolean;
+  randomizeOption?: boolean;
   options?: string[];
 };
 
@@ -23,6 +24,17 @@ export type PickSet = Set<number>
 // 未回答：N 正解：C 不正解：W ヒントを見たけど正解：H
 export type CheckTables = string[][]
 export type CheckTable  = string[]
+
+export const config = {
+  loader: { load: ["input/asciimath"] },
+  asciimath: {
+    displaystyle: true,
+    delimiters: [
+      ["$", "$"],
+      ["`", "`"]
+    ]
+  }
+};
 
 async function getJson(subject: string, part: string): Promise<{initCheckTables:CheckTables, sections: Section[] | undefined}> {
   const initCheckTables: CheckTables = [];
@@ -65,7 +77,7 @@ export default async function Main({ subject, part }: {
 
     return (
       <div>
-        <View sections={sections} sectionInit={sectionInit} initCheckTables={initCheckTables} />
+          <View sections={sections} sectionInit={sectionInit} initCheckTables={initCheckTables} />
       </div>
     );
   }

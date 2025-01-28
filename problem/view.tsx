@@ -1,16 +1,17 @@
 'use client'
-import { Dispatch, useState, type SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import Image from 'next/image';
 import chilene from "./image/chilene.jpg";
 import tima from "./image/tima.png";
 import correctSound from "./sound/correct.mp3";
 import wrongSound from "./sound/wrong.mp3";
-import { type Section, type CheckTables, type CheckTable, type PickSet, Problem } from "./main";
+import { config, type Section, type CheckTables, type PickSet } from "./main";
 import useSound from "use-sound";
 import Volume from "./volume";
-import { getResult } from "./logics";
+import { getResult, getOptionIndexes } from "./logics";
 import Options from "./options";
 import { Checks, updateCheckTable } from "./check";
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 
 
 
@@ -19,22 +20,25 @@ export function View({ sections, sectionInit, initCheckTables }: {
   sectionInit: number,
   initCheckTables: CheckTables,
 }) {
-  const [choicedNumber, setChoicedNumber] = useState(-1);
-  const [choicedSet, setChoicedSet] = useState<PickSet>(new Set());
-  const [problemCount, setProblemCount] = useState(0);
-  const [sectionCount, setSectionCount] = useState(sectionInit);
-  const [isShowImage, setIsShowImage] = useState(false);
-  const [checkTables, setCheckTables] = useState(initCheckTables);
-  const [isCorrect, setIsCorrect] = useState(false);
-  const [canSubmit, setCanSubmit] = useState(false);
-  const [volume, setVolume] = useState(1);
-  const [playCorrect] = useSound(correctSound, { volume });
-  const [playWrong] = useSound(wrongSound, { volume });
+  const [choicedNumber, setChoicedNumber] = useState(-1); //択一回答選択肢index
+  const [choicedSet, setChoicedSet] = useState<PickSet>(new Set()); //前線択一回答選択肢index
+  const [problemCount, setProblemCount] = useState(0); //問題番号
+  const [sectionCount, setSectionCount] = useState(sectionInit); //分類番号
+  const [isShowImage, setIsShowImage] = useState(false); //結果表示フラグ
+  const [checkTables, setCheckTables] = useState(initCheckTables); //丸付け表
+  const [isCorrect, setIsCorrect] = useState(false); //提出結果
+  const [canSubmit, setCanSubmit] = useState(false); //提出可否
+  const [optionIndexes, setOptionIndexes] = useState<number[]>([])
+  const [volume, setVolume] = useState(1); //音量
+  const [playCorrect] = useSound(correctSound, { volume }); //正解音声
+  const [playWrong] = useSound(wrongSound, { volume }); //不正解音声
 
   const section = sections[sectionCount]
   const problem = section.problems[problemCount];
   const pick = section.pick
   const answer = (typeof problem.answer) === 'number' ? problem.answer as number : new Set(problem.answer as number[]);
+
+  useEffect(()=>{ getOptionIndexes(problem, setOptionIndexes); }, [problemCount]);
 
   // 回答提出時処理
   const submit = () => {
@@ -72,15 +76,29 @@ export function View({ sections, sectionInit, initCheckTables }: {
         />
       }
       <div className="space-y-8">
-
         <Volume volume={volume} setVolume={setVolume} />
 
         <p>[{section.name}]、分類{sectionCount + 1}、問題{problemCount + 1}/{pick}</p>
         <Checks checkTable={checkTables[sectionCount]} />
-        <p>{problem.problemText}</p>
+        <div className="text-center">
+        {problem.problemText}
+      
+        {/* 問題本文 */}
+        {problem.problemMathJ &&
+          <MathJaxContext config={config}>
+            <MathJax hideUntilTypeset={"first"}>
+              {problem.problemMathJ}
+            </MathJax>
+          </MathJaxContext>
+        }
+        </div>
 
-        <Options problem={problem} choicedNumber={choicedNumber} choicedSet={choicedSet} setChoicedNumber={setChoicedNumber} setChoicedSet={setChoicedSet} setCanSubmit={setCanSubmit} />
+        {/* 選択肢 */}
+        <Options problem={problem} choicedNumber={choicedNumber} optionIndexes={optionIndexes} 
+        choicedSet={choicedSet} setChoicedNumber={setChoicedNumber} setChoicedSet={setChoicedSet} 
+        setCanSubmit={setCanSubmit} />
 
+        {/* 提出ボタン */}
         <button onClick={submit} disabled={!canSubmit}
           className={`mt-5 rounded-lg px-4 py-3 
             ${canSubmit ?

@@ -2,6 +2,19 @@
   "problems":
   [
     {
+      "pickType": "1",
+      "inputType": "mathJList",
+      "problemText": "行列の和は？",
+      "problemMathJ": "`[(1,0),(0,0)]+[(0,0),(0,1)]`",
+      "answer": 3,
+      "randomizeOption": true,
+      "options": [
+        "`[(0,0),(0,1)]`",
+        "`[(0,0),(1,1)]`",
+        "`[(1,1),(1,1)]`",
+        "`[(1,0),(0,1)]`"]
+    },
+    {
       "pickType": "a",
       "inputType": "strList",
       "problemText": "偶数は？",
@@ -13,8 +26,7 @@
       "pickType": "1",
       "inputType": "numpad",
       "problemText": "１＋３は？",
-      "answer": 4,
-      "randomizeOption": true
+      "answer": 4
     },
     {
       "pickType": "1",
@@ -28,15 +40,13 @@
       "pickType": "1",
       "inputType": "numpad",
       "problemText": "３×２は？",
-      "answer": 6,
-      "randomizeOption": true
+      "answer": 6
     },
     {
       "pickType": "1",
       "inputType": "numpad",
       "problemText": "１２/２は？",
-      "answer": 6,
-      "randomizeOption": true
+      "answer": 6
     }
   ]
 }

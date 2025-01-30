@@ -77,7 +77,7 @@ export default async function Main({ subject, part }: {
 
     return (
       <div>
-          <View sections={sections} sectionInit={sectionInit} initCheckTables={initCheckTables} />
+          <View props={{sections, sectionInit, initCheckTables}} />
       </div>
     );
   }

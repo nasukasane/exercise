@@ -14,24 +14,28 @@ function getOptions(problem: Problem): string[] {
 
 // 選択ビュー
 export default function Options(
-  { problem, choicedNumber, choicedSet, optionIndexes, setChoicedNumber, setChoicedSet, setCanSubmit }: {
-    problem: Problem,
-    choicedNumber: number,
-    choicedSet: PickSet,
-    optionIndexes: number[],
-    setChoicedNumber: Dispatch<SetStateAction<number>>,
-    setChoicedSet: Dispatch<SetStateAction<PickSet>>,
-    setCanSubmit: Dispatch<SetStateAction<boolean>>,
-  }) {
+  { props: { problem, choicedNumber, choicedSet,
+    optionIndexes, setChoicedNumber, setChoicedSet, setCanSubmit } }:
+    {
+      props: {
+        problem: Problem,
+        choicedNumber: number,
+        choicedSet: PickSet,
+        optionIndexes: number[],
+        setChoicedNumber: Dispatch<SetStateAction<number>>,
+        setChoicedSet: Dispatch<SetStateAction<PickSet>>,
+        setCanSubmit: Dispatch<SetStateAction<boolean>>,
+      }
+    }) {
   // 回答選択肢取得
   const options = getOptions(problem);
   // 選択肢クリック時動作
-  const handleClick = (index:number)=>{
+  const handleClick = (index: number) => {
     // 択一タイプ選択肢
     if (problem.pickType === '1') {
       setChoicedNumber(index);
       setCanSubmit(true);
-    // 全択タイプ選択肢
+      // 全択タイプ選択肢
     } else if (problem.pickType === 'a') {
       if (choicedSet.has(index)) {
         const newSet = new Set([...choicedSet])
@@ -52,13 +56,14 @@ export default function Options(
         return (
           <button
             key={index}
-            className={`space-y-1.5 rounded-lg px-5 py-3 border-2
+            className={`flex space-y-1.5 rounded-lg px-5 py-3 border-2
                           ${index === choicedNumber || choicedSet.has(index) ?
                 'bg-blue-300 border-blue-800 hover:bg-blue-400'
                 : 'bg-gray-200 hover:bg-gray-400'}`}
             onClick={() => handleClick(index)}
           >
-            <div className="font-medium text-gray-800 hover:text-gray-1000" >
+            <input type="radio" className="flex-none" checked={index === choicedNumber || choicedSet.has(index)} readOnly/>
+            <div className="flex-1 flex justify-center items-center text-2xl text-gray-800 hover:text-gray-1000" >
               {problem.inputType === 'mathJList' ?
                 // 数式表示
                 <MathJaxContext config={config}>

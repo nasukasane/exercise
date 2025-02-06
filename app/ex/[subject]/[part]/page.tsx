@@ -6,7 +6,6 @@ export default async function Page({ params }: {
 
   return (
     <div>
-      ここはPage.tsx
       <Main subject={slugs.subject} part={slugs.part} />
     </div>
   );

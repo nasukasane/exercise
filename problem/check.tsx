@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react"
-import { CheckTable, CheckTables } from "./main"
+import { CheckTable, CheckTables, ChoiceTables } from "./main"
 
 export function Checks({ checkTable }: { checkTable: CheckTable }) {
   return (
@@ -22,7 +22,7 @@ export function updateCheckTable(
   result: boolean,
   sectionCount: number,
   problemCount: number,
-  checkTables: CheckTables,
+  checkTables: CheckTables, 
   setCheckTables: Dispatch<SetStateAction<CheckTables>>) {
   // checkTable更新
   setCheckTables(checkTables.map((checkTable, i) => {

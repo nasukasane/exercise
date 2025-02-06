@@ -1,16 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { PickSet, Problem, config } from "./main";
 import { MathJax, MathJaxContext } from "better-react-mathjax";
-
-// 選択肢取得
-function getOptions(problem: Problem): string[] {
-  if (problem.inputType === "strList" || problem.inputType === "mathJList") {
-    return problem.options as string[]
-  } else if (problem.inputType === "numpad") {
-    return ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
-  }
-  return []
-}
+import { getOptions } from "./logics";
 
 // 選択ビュー
 export default function Options(
@@ -54,21 +45,26 @@ export default function Options(
     <div className={`grid gap-5 ${problem.inputType === "numpad" ? "grid-cols-5" : "grid-cols-2"}`}>
       {optionIndexes.map(index => {
         return (
+          // ボタン本体
           <button
             key={index}
             className={`flex space-y-1.5 rounded-lg px-5 py-3 border-2
                           ${index === choicedNumber || choicedSet.has(index) ?
                 'bg-blue-300 border-blue-800 hover:bg-blue-400'
-                : 'bg-gray-200 hover:bg-gray-400'}`}
+                : 'bg-gray-200 border-gray-400 hover:bg-gray-400'}`}
             onClick={() => handleClick(index)}
           >
-            <input type="radio" className="flex-none" checked={index === choicedNumber || choicedSet.has(index)} readOnly/>
+            {/* ラジオボタン/チェックボックス */}
+            <input type={problem.pickType==='1' ? 'radio' : 'checkbox'}
+              className="flex-none" 
+              checked={index === choicedNumber || choicedSet.has(index)} readOnly/>
+            {/* 選択肢 */}
             <div className="flex-1 flex justify-center items-center text-2xl text-gray-800 hover:text-gray-1000" >
               {problem.inputType === 'mathJList' ?
                 // 数式表示
                 <MathJaxContext config={config}>
-                  <MathJax hideUntilTypeset={"first"}>
-                    {options[index]}
+                  <MathJax hideUntilTypeset={"first"} className="text-xl">
+                    {'`' + options[index] + '`'}
                   </MathJax>
                 </MathJaxContext>
                 // 文字列表示

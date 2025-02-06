@@ -7,14 +7,16 @@
       "problemText": "偶数は？",
       "answer": [0,2,3],
       "randomizeOption": true,
-      "options": ["2", "5", "6", "16"]
+      "options": ["2", "5", "6", "16"],
+      "explanation": "これはせつめいだよ"
     },
     {
       "pickType": "1",
       "inputType": "numpad",
       "problemText": "１＋３は？",
       "answer": 4,
-      "randomizeOption": true
+      "randomizeOption": true,
+      "explanation": "せつめい。せつめい。"
     }
   ]
 }

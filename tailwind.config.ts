@@ -14,6 +14,9 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
+      maxWidth: {
+        inherit: "inherit",
+      },
       // https://vercel.com/design/color
       colors: {
         

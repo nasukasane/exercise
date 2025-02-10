@@ -45,11 +45,11 @@ const getNextInfo = (problemCount: number, sectionCount: number, checkTables: Ch
 }
 
 export function Footer({
-  props: { submit, isShowImage, canSubmit, problemCount, sectionCount, checkTables, setSectionCount, setProblemCount } }:
+  props: { submit, showJudge, canSubmit, problemCount, sectionCount, checkTables, setSectionCount, setProblemCount } }:
   {
     props: {
       submit: () => void,
-      isShowImage: boolean,
+      showJudge: boolean,
       canSubmit: boolean,
       problemCount: number,
       sectionCount: number,
@@ -92,7 +92,7 @@ export function Footer({
         </button>
       </div>
       <div className='w-12 h-12 items-center '>
-        {canGoForward && !isShowImage &&
+        {canGoForward && !showJudge &&
           <button onClick={goForward}
             className='w-12 h-12 rounded-full bg-blue-600 hover:bg-blue-800'>
             <ChevronRightIcon className='inline w-6 text-gray-200 hover:text-gray-50' />

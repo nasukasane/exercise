@@ -1,5 +1,36 @@
 import { Dispatch, SetStateAction } from "react";
-import { PickSet, Problem, ChoiceTables } from "./main";
+import { PickSet, Problem, ChoiceTables, CheckTables } from "./main";
+
+
+export function getPrevNext(problemCount: number, sectionCount: number, checkTables: CheckTables) {
+  const returnObj = {
+    canGoBack: true,
+    prevSection: sectionCount,
+    prevProblem: problemCount - 1,
+    canGoForward: checkTables[sectionCount][problemCount] !== 'N',
+    nextProblem: problemCount + 1,
+    nextSection: sectionCount,
+    isLastProblem: false,
+  };
+  // 章頭問題時のprev情報修正
+  if (problemCount === 0) {
+    const prevSection = sectionCount - 1;
+    returnObj.canGoBack = sectionCount !== 0;
+    returnObj.prevSection = prevSection;
+    returnObj.prevProblem = sectionCount === 0 ? -1 : checkTables[prevSection].length - 1;
+  }
+  // 章末問題
+  if (problemCount === checkTables[sectionCount].length - 1) {
+    // 最終章
+    if (sectionCount === checkTables.length - 1) {
+      returnObj.isLastProblem = true;
+    } else {
+      returnObj.nextProblem = 0;
+      returnObj.nextSection = sectionCount + 1;
+    }
+  }
+  return returnObj
+}
 
 export function getResult(
   choicedNumber: number,
@@ -16,23 +47,23 @@ export function getResult(
 
 export function updateChoiceTable(
   problem: Problem,
-  choicedNumber: number, 
+  choicedNumber: number,
   choicedSet: PickSet,
-  sectionCount: number, 
+  sectionCount: number,
   problemCount: number,
   ChoiceTables: ChoiceTables,
   setChoiceTables: Dispatch<SetStateAction<ChoiceTables>>,
-){
-  setChoiceTables(()=>{
+) {
+  setChoiceTables(() => {
     const ret = [...ChoiceTables];
-    if(problem.pickType==='1'){
+    if (problem.pickType === '1') {
       ret[sectionCount][problemCount] = choicedNumber;
-    }else{
+    } else {
       ret[sectionCount][problemCount] = choicedSet;
     }
     return ret
   })
-  
+
 }
 
 // 選択肢取得
@@ -53,7 +84,7 @@ export function getOptionIndexes(
   indexTables: number[][][],
   setIndexTables: Dispatch<SetStateAction<number[][][]>>) {
   // ランダマイズ化済みなら終了
-  if(indexTables[sectionCount][problemCount].length!==0){
+  if (indexTables[sectionCount][problemCount].length !== 0) {
     return
   }
   if (problem.inputType === 'numpad') {

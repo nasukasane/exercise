@@ -5,14 +5,14 @@ import wrongSound from "./sound/wrong.mp3";
 import { type Section, type CheckTables, type PickSet, ChoiceTables } from "./main";
 import useSound from "use-sound";
 import Volume from "./volume";
-import { getResult, getOptionIndexes, updateChoiceTable } from "./logics";
+import { getResult, getOptionIndexes, updateChoiceTable, getPrevNext } from "./logics";
 import Options from "./options";
 import { Checks, updateCheckTable } from "./check";
 import { Footer } from "./footer";
 import Explanation from "./explanation";
-import OptionsAfter from "./optionsAfter";
 import JudgeImage from "./judgeImage";
 import ProblemText from "./text";
+import ProblemHeader from "./problemHeader";
 
 
 
@@ -31,11 +31,12 @@ export function View({ props: {
   const [problemCount, setProblemCount] = useState(0); //問題番号
   const [sectionCount, setSectionCount] = useState(sectionInit); //分類番号
   const [showJudge, setShowJudge] = useState(false); //結果表示フラグ
-  const [goReslt, setGoResult] = useState(false); //リザルト行きフラグ
+  const [isResult, setIsResult] = useState(false); //リザルト行きフラグ
   const [checkTables, setCheckTables] = useState(initCheckTables); //丸付け表
   const [choiceTables, setChoiceTables] = useState<ChoiceTables>(initChoiceTables); //丸付け表
   const [canSubmit, setCanSubmit] = useState(false); //提出可否
   const [indexTables, setIndexTables] = useState<number[][][]>(initIndexTables) //選択肢index
+  const [isExplaining, setIsExplaining] = useState(false) //説明開閉
   const [volume, setVolume] = useState(1); //音量
   const [playCorrect] = useSound(correctSound, { volume }); //正解音声
   const [playWrong] = useSound(wrongSound, { volume }); //不正解音声
@@ -45,10 +46,45 @@ export function View({ props: {
   const pick = section.pick
   const answer = (typeof problem.answer) === 'number' ? problem.answer as number : new Set(problem.answer as number[]);
   const checkResult = checkTables[sectionCount][problemCount];
+  const canExplain = checkResult !== 'N';
   useEffect(() => {
     getOptionIndexes(problem, sectionCount, problemCount, indexTables, setIndexTables);
   }, [problemCount]);
   const optionIndexes = indexTables[sectionCount][problemCount];
+
+  const { canGoBack, prevSection, prevProblem, canGoForward, nextSection, nextProblem, isLastProblem }
+   = getPrevNext(problemCount, sectionCount, checkTables);
+  
+  const goBack = () => {
+    if(isResult){
+      setIsResult(false);
+    }else{
+      setSectionCount(prevSection);
+      setProblemCount(prevProblem);
+    }
+  };
+  
+  const goForward = () => {
+    if(isLastProblem){
+      setIsResult(true);
+    }else{
+      setSectionCount(nextSection);
+      setProblemCount(nextProblem);
+    }
+  };
+  
+  const resetProblem = () =>{
+    setProblemCount(0);
+    setSectionCount(0);
+    setIsResult(false);
+    setCheckTables([...initCheckTables]);
+    setChoiceTables([...initChoiceTables]);
+    setIndexTables([...initIndexTables]);
+  };
+
+  const openExplain =() =>{
+    setIsExplaining(true);
+  };
 
   // 回答提出時処理
   const submit = () => {
@@ -61,21 +97,14 @@ export function View({ props: {
     // 後処理
     setTimeout(() => {
       // 問題/区分カウンタ更新
-      if (problemCount < pick - 1) {
-        setProblemCount(problemCount + 1);
-      } else {
-        setProblemCount(0);
-        if (sectionCount === sections.length - 1) {
-          setGoResult(true);
-        } else {
-          setSectionCount(sectionCount + 1);
-        }
-      }
+      result ? goForward() : setIsExplaining(true);
       setShowJudge(false); // 結果画像非表示
       setChoicedNumber(-1); // 回答選択初期化
       setChoicedSet(new Set()); // 回答選択初期化
     }, 1000); // 1秒後に非表示
   };
+
+
 
   // ビュー
   return (
@@ -85,13 +114,14 @@ export function View({ props: {
           <div className="mt-2 rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
             <div className="relative rounded-lg bg-white p-3.5 lg:p-6">
               <JudgeImage props={{ showJudge, sectionCount, problemCount, checkTables }} />
-              
+
               <div className="space-y-8">
                 <Volume volume={volume} setVolume={setVolume} />
+                <ProblemHeader props={{sectionCount, sections}} />
                 <p>[{section.name}]、分類{sectionCount + 1}、問題{problemCount + 1}/{pick}</p>
                 <Checks checkTable={checkTables[sectionCount]} />
-                {goReslt?
-                'リザルト！' : <ProblemText props={{problem}} />
+                {isResult ?
+                  'リザルト！' : <ProblemText props={{ problem }} />
                 }
               </div>
             </div>
@@ -101,22 +131,27 @@ export function View({ props: {
       <footer className="z-10 fixed bottom-10 w-full">{/* 提出ボタン */}
         <div className=" lg:pl-72">
           <div className=" mx-auto max-w-4xl  text-center">
-            <div className='mt-2 rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20'>
-              <div className="rounded-lg bg-white p-3.5 lg:p-6">
-                <Options props={{
+            {!isResult &&
+              <div className='mt-2 rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20'>
+                <div className="rounded-lg bg-white p-3.5 lg:p-6">
+                  <Options props={{
                     sectionCount, problemCount, choiceTables, problem, choicedNumber, choicedSet, checkResult, optionIndexes, setChoicedNumber, setChoicedSet, setCanSubmit
                   }} />
-              </div>
-            </div>
+                </div>
+              </div>}
             <div className='rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20'>
               <div className="rounded-lg bg-white p-3.5 lg:p-6">
-                <Footer props={{ submit, showJudge, canSubmit, problemCount, sectionCount, checkTables, setSectionCount, setProblemCount }} />
+                <Footer props={{
+                  isResult, showJudge, canSubmit, canGoBack, canGoForward, canExplain,
+                  goForward, goBack, submit, resetProblem, openExplain
+                }} />
               </div>
             </div>
           </div>
         </div>
 
       </footer>
+      <Explanation props={{problem, isExplaining, goForward, setIsExplaining}}/>
     </div>
   );
 }

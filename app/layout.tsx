@@ -28,7 +28,7 @@ export default function RootLayout({
     <html lang="ja">
       {/* <body className="overflow-y-scroll bg-gray-1100 bg-[url('/grid.svg')] pb-36"> */}
       {/* <body className="overflow-y-scroll bg-gray-100 pb-36"> */}
-      <body className="overflow-y-scroll bg-gray-100">
+      <body className="bg-gray-100">
         <GlobalNav />
 
         <div className="">

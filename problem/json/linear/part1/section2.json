@@ -2,6 +2,13 @@
   "problems":
   [
     {
+      "pickType": "1",
+      "inputType": "numpad",
+      "problemText": "３×２は？",
+      "answer": 6,
+      "explanation": "指をつかってね"
+    },
+    {
       "pickType": "a",
       "inputType": "strList",
       "problemText": "偶数は？",

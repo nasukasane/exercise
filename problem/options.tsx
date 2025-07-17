@@ -76,6 +76,8 @@ type propType = {
 }
 
 function ToBeSolved({ props: { problem, options, optionIndexes, choicedSet, choicedNumber, handleClick } }: propType) {
+  console.log('hello:',problem.problemText, optionIndexes)
+
   return (
     <div className={`grid gap-5 ${problem.inputType === "numpad" ? "grid-cols-5" : "grid-cols-2"}`}>
       {optionIndexes.map(index => {

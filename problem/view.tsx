@@ -49,12 +49,21 @@ export function View({ props: {
   const canExplain = checkResult !== 'N';
   useEffect(() => {
     getOptionIndexes(problem, sectionCount, problemCount, indexTables, setIndexTables);
-  }, [problemCount]);
+  }, [sectionCount, problemCount]);
   const optionIndexes = indexTables[sectionCount][problemCount];
 
   const { canGoBack, prevSection, prevProblem, canGoForward, nextSection, nextProblem, isLastProblem }
    = getPrevNext(problemCount, sectionCount, checkTables);
   
+  const jumpSection= (sectionNumber:number)=>{
+    if(sectionCount != sectionNumber){
+      setChoicedNumber(-1); // 回答選択初期化
+      setChoicedSet(new Set()); // 回答選択初期化
+      setSectionCount(sectionNumber);
+      setProblemCount(0);
+    }
+  };
+
   const goBack = () => {
     if(isResult){
       setIsResult(false);
@@ -108,7 +117,7 @@ export function View({ props: {
 
   // ビュー
   return (
-    <div className=''>
+    <div className='overflow-y-scroll'>
       <div className='lg:pl-72'>
         <div className="mx-auto max-w-4xl pt-20 lg:pt-8">
           <div className="mt-2 rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
@@ -117,7 +126,7 @@ export function View({ props: {
 
               <div className="space-y-8">
                 <Volume volume={volume} setVolume={setVolume} />
-                <ProblemHeader props={{sectionCount, sections}} />
+                <ProblemHeader props={{sectionCount, sections, checkTables, jumpSection}} />
                 <p>[{section.name}]、分類{sectionCount + 1}、問題{problemCount + 1}/{pick}</p>
                 <Checks checkTable={checkTables[sectionCount]} />
                 {isResult ?

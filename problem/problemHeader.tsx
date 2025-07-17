@@ -1,51 +1,88 @@
-import { Select } from '@headlessui/react'
-import { ChevronDownIcon } from '@heroicons/react/20/solid'
-import clsx from 'clsx'
-import { Section } from './main'
+import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react'
+import { CheckIcon, ChevronDownIcon, ChevronRightIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { CheckTables, Section } from './main'
+import { CheckCircleIcon } from '@heroicons/react/16/solid'
 
-function ProblemList({ props: { sectionCount, sections, } }: {
+function ProblemMenu({ props: { sectionCount, sections, checkTables, jumpSection} }: {
   props: {
     sectionCount: number,
     sections: Section[],
+    checkTables: CheckTables,
+    jumpSection: (sectionNumber: number)=>void,
   }
 }) {
   return (
-    <div className="w-full max-w-md mx-auto ">
-      <div className="relative">
-        <Select
-          className={clsx(
-            'mt-3 block w-full appearance-none rounded-lg border-gray-500 bg-white/5 py-1.5 px-3 text-sm/6 text-gray-900',
-            'focus:outline-none data-[focus]:outline-2 data-[focus]:-outline-offset-2 data-[focus]:outline-white/25',
-            // Make the text of each option black on Windows
-            '*:text-black'
-          )}
+    <div className="text-center">
+      <Menu>
+        <MenuButton 
+          className="inline-flex items-center w-full max-w-[500px] gap-2 rounded-md  mx-auto
+           bg-gray-200 py-1.5 px-3 text-sm/6 font-semibold text-gray-800 
+           focus:outline-none data-[hover]:bg-gray-300 data-[open]:bg-gray-400
+           border-gray-700 border
+           data-[focus]:outline-1 data-[focus]:outline-gray-700">
+          {sections[sectionCount].name}
+          <ChevronDownIcon className="size-4 fill-gray-800" />
+        </MenuButton>
+
+        <MenuItems
+          transition
+          anchor="bottom start"
+          className="rounded-xl border max-w-[500px] border-gray-600 bg-white p-1 text-sm/6 
+           transition duration-100 ease-out [--anchor-gap:var(--spacing-1)]
+           focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0"
         >
-          <option key={-2}>{sections[sectionCount].name}</option>
-          <option key={-1}>選択した問題に移動</option>
-          {sections.map((section, s) => {
+          <MenuItem key={-1}>
+            <div>
+              選択した問題に移動<hr className='border-gray-500'/>
+            </div>
+          </MenuItem>
+          {sections.map((section, sectionNumber) => {
             return (
-              <option key={s} className=''>{section.name}</option>
+              <MenuItem key={sectionNumber}>
+                <button onClick={()=>{jumpSection(sectionNumber)}}
+                  className="group flex w-full items-center gap-2 rounded-lg py-1.5 px-3
+                 data-[focus]:bg-blue-200 content-center">
+                  <div className="w-[20px]" >{sectionCount === sectionNumber && <ChevronRightIcon className='w-5'/>}</div>
+                  <div className="w-[380px] text-left">{section.name}</div>
+                  <div className="w-[100px] text-left flex">
+                    {checkTables[sectionNumber].map((check, i)=>{
+                      if      (check==='N'){
+                        return (
+                        <div className='inline w-6' key={i+10}>
+                          <QuestionMarkCircleIcon />
+                        </div>)}
+                      else if (check==='C'){
+                        return (
+                        <div className='inline w-6 text-green-600' key={i+10}>
+                          <CheckIcon />
+                          </div>)}
+                      return (<div className='inline w-6 text-red-600' key={i+10}>
+                        <XMarkIcon />
+                        </div>)
+                    })}
+                  </div>
+                </button>
+              </MenuItem>
             )
           })}
-        </Select>
-        <ChevronDownIcon
-          className="group pointer-events-none absolute top-2.5 right-2.5 size-4 fill-white/60"
-          aria-hidden="true"
-        />
-      </div>
+        </MenuItems>
+      </Menu>
     </div>
+
   )
 }
 
-export default function ProblemHeader({ props: {sectionCount, sections} }: {
+export default function ProblemHeader({ props: { sectionCount, sections, checkTables, jumpSection } }: {
   props: {
     sectionCount: number,
     sections: Section[],
+    checkTables: CheckTables,
+    jumpSection: (sectionNumber:number)=>void,
   }
 }) {
   return (
     <div>
-      <ProblemList props={ {sectionCount, sections} } />
+      <ProblemMenu props={{ sectionCount, sections, checkTables, jumpSection }} />
     </div>
   )
 }

@@ -117,8 +117,8 @@ export function View({ props: {
 
   // ビュー
   return (
-    <div className='overflow-y-scroll'>
-      <div className='lg:pl-72'>
+    <div className='h-screen grid grid-rows-[1fr_400px] grid-cols-1 lg:pl-72'>
+      <div className='overflow-y-auto'>
         <div className="mx-auto max-w-4xl pt-20 lg:pt-8">
           <div className="mt-2 rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
             <div className="relative rounded-lg bg-white p-3.5 lg:p-6">
@@ -137,27 +137,27 @@ export function View({ props: {
           </div>
         </div>
       </div>
-      <footer className="z-10 fixed bottom-10 w-full">{/* 提出ボタン */}
-        <div className=" lg:pl-72">
-          <div className=" mx-auto max-w-4xl  text-center">
-            {!isResult &&
-              <div className='mt-2 rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20'>
-                <div className="rounded-lg bg-white p-3.5 lg:p-6">
-                  <Options props={{
-                    sectionCount, problemCount, choiceTables, problem, choicedNumber, choicedSet, checkResult, optionIndexes, setChoicedNumber, setChoicedSet, setCanSubmit
-                  }} />
-                </div>
-              </div>}
-            <div className='rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20'>
+      <footer className="z-10 w-full text-center">{/* 提出ボタン */}
+
+        <div className='mx-auto max-w-4xl'>
+          {!isResult &&
+            <div className='mt-2 rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20'>
               <div className="rounded-lg bg-white p-3.5 lg:p-6">
-                <Footer props={{
-                  isResult, showJudge, canSubmit, canGoBack, canGoForward, canExplain,
-                  goForward, goBack, submit, resetProblem, openExplain
+                <Options props={{
+                  sectionCount, problemCount, choiceTables, problem, choicedNumber, choicedSet, checkResult, optionIndexes, setChoicedNumber, setChoicedSet, setCanSubmit
                 }} />
               </div>
+            </div>}
+          <div className='rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20'>
+            <div className="rounded-lg bg-white p-3.5 lg:p-6">
+              <Footer props={{
+                isResult, showJudge, canSubmit, canGoBack, canGoForward, canExplain,
+                goForward, goBack, submit, resetProblem, openExplain
+              }} />
             </div>
           </div>
         </div>
+
 
       </footer>
       <Explanation props={{problem, isExplaining, goForward, setIsExplaining}}/>

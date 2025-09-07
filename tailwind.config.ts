@@ -14,81 +14,25 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      maxWidth: {
-        inherit: "inherit",
-      },
-      // https://vercel.com/design/color
-      colors: {
-        
-        gray: colors.zinc,
-        'gray-1000': 'rgb(17,17,19)',
-        'gray-1100': 'rgb(10,10,11)',
-        vercel: {
-          pink: '#FF0080',
-          blue: '#0070F3',
-          cyan: '#50E3C2',
-          orange: '#F5A623',
-          violet: '#7928CA',
+      keyframes: {
+        'slide-in-fade': {
+          '0%': { transform: 'translateY(30px)', opacity: '0' },
+          '100%': { transform: 'translateY(0px)', opacity: '1' },
+        },
+        'shake-x': {
+          '0%': { opacity: '0' },
+          '5%': { transform: 'translateX(10px)', opacity: '0.5' },
+          '10': { transform: 'translateX(0px)', opacity: '1' },
+          '15%': { transform: 'translateX(-10px)', opacity: '1' },
+          '25%': { transform: 'translateX(10px)', opacity: '1' },
+          '30%': { transform: 'translateX(0px)', opacity: '1' },
+          '100%': { transform: 'translateX(0px)', opacity: '1' },
         },
       },
-      backgroundImage: ({ theme }) => ({
-        'vc-border-gradient': `radial-gradient(at left top, ${theme(
-          'colors.gray.500',
-        )}, 50px, ${theme('colors.gray.800')} 50%)`,
-      }),
-      keyframes: ({ theme }) => ({
-        rerender: {
-          '0%': {
-            ['border-color']: theme('colors.vercel.pink'),
-          },
-          '40%': {
-            ['border-color']: theme('colors.vercel.pink'),
-          },
-        },
-        highlight: {
-          '0%': {
-            background: theme('colors.vercel.pink'),
-            color: theme('colors.white'),
-          },
-          '40%': {
-            background: theme('colors.vercel.pink'),
-            color: theme('colors.white'),
-          },
-        },
-        loading: {
-          '0%': {
-            opacity: '.2',
-          },
-          '20%': {
-            opacity: '1',
-            transform: 'translateX(1px)',
-          },
-          to: {
-            opacity: '.2',
-          },
-        },
-        shimmer: {
-          '100%': {
-            transform: 'translateX(100%)',
-          },
-        },
-        translateXReset: {
-          '100%': {
-            transform: 'translateX(0)',
-          },
-        },
-        fadeToTransparent: {
-          '0%': {
-            opacity: '1',
-          },
-          '40%': {
-            opacity: '1',
-          },
-          '100%': {
-            opacity: '0',
-          },
-        },
-      }),
+      animation: {
+        'slide-in-fade': 'slide-in-fade 1s ease-out forwards', // forwardsで最終状態を維持
+        'shake-x': 'shake-x 1s forwards', 
+      },
     },
   },
   plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],

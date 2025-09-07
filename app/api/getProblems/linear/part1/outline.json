@@ -1,0 +1,9 @@
+{
+  "outline" : [
+    {"chapterTitle":"行列のスカラー倍", "fileName":"sclTimesMat"},
+    {"chapterTitle":"行列の足し算", "fileName":"matPlusMat"},
+    {"chapterTitle":"行列とベクトルの積", "fileName":"matTimesVec"},
+    {"chapterTitle":"行列と行列の積", "fileName":"matTimesMat"},
+    {"chapterTitle":"各種法則", "fileName":"other"}
+  ]
+}

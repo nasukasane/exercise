@@ -117,7 +117,7 @@ export function View({ props: {
 
   // ビュー
   return (
-    <div className='h-screen grid grid-rows-[1fr_400px] grid-cols-1 lg:pl-72'>
+    <div className='h-screen grid grid-rows-[1fr_400px] grid-cols-1'>
       <div className='overflow-y-auto'>
         <div className="mx-auto max-w-4xl pt-20 lg:pt-8">
           <div className="mt-2 rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">

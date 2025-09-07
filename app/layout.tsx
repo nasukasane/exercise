@@ -1,6 +1,4 @@
 import '@/styles/globals.css';
-import { AddressBar } from '@/ui/address-bar';
-import Byline from '@/ui/byline';
 import { GlobalNav } from '@/ui/global-nav';
 import { Metadata } from 'next';
 
@@ -30,18 +28,8 @@ export default function RootLayout({
       {/* <body className="overflow-y-scroll bg-gray-100 pb-36"> */}
       <body className="bg-gray-100">
         <GlobalNav />
-
-        <div className="">
-          {/* <div className="mx-auto max-w-4xl space-y-8 px-2 pt-20 lg:px-8 lg:py-8"> */}
-          <div className="">
-            {/* <div className="rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
-                <div className="rounded-lg bg-black">
-                  <AddressBar />
-                </div>
-              </div> */}
-            {children}
-            {/* <Byline /> */}
-          </div>
+        <div className="mx-auto max-w-6xl space-y-2 px-2 md:px-2 md:pl-72">
+          {children}
         </div>
       </body>
     </html>

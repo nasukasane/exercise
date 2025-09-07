@@ -1,0 +1,93 @@
+{
+  "sections":[
+    {
+      "sectionTitle": "行列の足し算が可能な条件",
+      "pick" : 1,
+      "problems":[
+        {
+          "optionType": "mathJList",
+          "problemText": "m×n行列とp×q行列とが足し算可能となる条件は？",
+          "answer": 3,
+          "randomizeOption": true,
+          "options": [
+            "m=p",
+            "n=p",
+            "m=qかつn=p",
+            "m=pかつn=q"],
+          "explanationText": "行列は形が同じもの同士で足し算可能。",
+          "explanationMathJ": "[(a,b),(c,d)]+[(e,f),(g,h)]=[(a+e,b+f),(c+g,d+h)]"
+        }
+      ]
+    },
+    {
+      "sectionTitle": "2×2行列の足し算",
+      "pick" : 1,
+      "problems":[
+        {
+          "optionType": "numpad",
+          "problemText": "次の行列と行列の足し算の式で、「？」に入る数はどれ？",
+          "problemMathJ": "[(2,1),(3,0)]+[(5,3),(4,1)]=[(？,＊),(＊,＊)]",
+          "answer": 7,
+          "explanationText": "ベクトル同士の足し算のやり方と一緒。",
+          "explanationMathJ": "[(a,b),(c,d)]+[(e,f),(g,h)]=[(a+e,b+f),(c+g,d+h)]"
+        },
+        {
+          "optionType": "numpad",
+          "problemText": "次の行列と行列の足し算の式で、「？」に入る数はどれ？",
+          "problemMathJ": "[(1,1),(3,3)]+[(2,3),(5,1)]=[(＊,＊),(？,＊)]",
+          "answer": 8,
+          "explanationText": "ベクトル同士の足し算のやり方と一緒。",
+          "explanationMathJ": "[(a,b),(c,d)]+[(e,f),(g,h)]=[(a+e,b+f),(c+g,d+h)]"
+        }
+      ]
+    },
+    {
+      "sectionTitle": "2×3行列の足し算",
+      "pick" : 1,
+      "problems":[
+        {
+          "pickType": "1",
+          "optionType": "numpad",
+          "problemText": "次の行列と行列の足し算の式で、「？」に入る数はどれ？",
+          "problemMathJ": "[(1,2),(3,4),(5,6)]+[(2,2),(3,3),(4,4)]=[(＊,＊),(？,＊),(＊,＊)]",
+          "answer": 6,
+          "explanationText": "ベクトル同士の足し算のやり方と一緒。",
+          "explanationMathJ": "[(a,b),(c,d),(e,f)]+[(g,h),(i,j),(k,l)]=[(a+g,b+h),(c+i,d+j),(e+k,f+l)]"
+        },
+        {
+          "pickType": "1",
+          "optionType": "numpad",
+          "problemText": "次の行列と行列の足し算の式で、「？」に入る数はどれ？",
+          "problemMathJ": "[(1,2),(3,4),(5,6)]+[(2,2),(3,3),(4,4)]=[(＊,？),(＊,＊),(＊,＊)]",
+          "answer": 4,
+          "explanationText": "ベクトル同士の足し算のやり方と一緒。",
+          "explanationMathJ": "[(a,b),(c,d),(e,f)]+[(g,h),(i,j),(k,l)]=[(a+g,b+h),(c+i,d+j),(e+k,f+l)]"
+        }
+      ]
+    },
+    {
+      "sectionTitle": "3×3行列の足し算",
+      "pick" : 1,
+      "problems":[
+        {
+          "pickType": "1",
+          "optionType": "numpad",
+          "problemText": "次の行列と行列の足し算の式で、「？」に入る数はどれ？",
+          "problemMathJ": "[(0,1,2),(3,4,5),(6,7,8)]+[(1,1,1),(1,1,1),(1,1,1)]=[(＊,＊,＊),(＊,？,＊),(＊,＊,＊)]",
+          "answer": 5,
+          "explanationText": "ベクトル同士の足し算のやり方と一緒。",
+          "explanationMathJ": "[(a,b,c),(d,e,f),(g,h,i)]+[(j,k,l),(m,n,o),(p,q,r)]=[(a+j,b+k,c+l),(d+m,e+n,f+o),(g+p,h+q,i+r)]"
+        },
+        {
+          "pickType": "1",
+          "optionType": "numpad",
+          "problemText": "次の行列と行列の足し算の式で、「？」に入る数はどれ？",
+          "problemMathJ": "[(0,1,2),(3,4,5),(6,7,8)]+[(1,1,1),(1,1,1),(1,1,1)]=[(＊,？,＊),(＊,＊,＊),(＊,＊,＊)]",
+          "answer": 2,
+          "explanationText": "ベクトル同士の足し算のやり方と一緒。",
+          "explanationMathJ": "[(a,b,c),(d,e,f),(g,h,i)]+[(j,k,l),(m,n,o),(p,q,r)]=[(a+j,b+k,c+l),(d+m,e+n,f+o),(g+p,h+q,i+r)]"
+        }
+      ]
+    }
+  ]
+}

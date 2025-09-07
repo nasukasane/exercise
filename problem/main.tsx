@@ -1,45 +1,12 @@
 import { cookies } from 'next/headers';
 import { View } from './view'
 
-export type Problem = {
-  inputType: "strList" | "figList" | "mathJList" | "numpad" | "string";
-  pickType?: "a" | "1";
-  problemText: string;
-  problemMathJ?: string;
-  answer: Answer;
-  randomizeOption?: boolean;
-  options?: string[];
-  explanation: string;
-  expFigure: string;
-};
-
-export type Outline = {
-  name: string;
-  pick: number;
-};
-export type Section = Outline & {
-  problems: Problem[];
-};
-export type PickSet = Set<number>;
-export type Answer = number | number[];
-export type ChoiceTable = (number | PickSet)[];
-export type ChoiceTables = ChoiceTable[];
 
 
 // 未回答：N 正解：C 不正解：W ヒントを見たけど正解：H
 export type CheckTables = string[][]
 export type CheckTable = string[]
 
-export const config = {
-  loader: { load: ["input/asciimath"] },
-  asciimath: {
-    displaystyle: true,
-    delimiters: [
-      ["$", "$"],
-      ["`", "`"]
-    ]
-  }
-};
 
 async function getJson(subject: string, part: string): 
 Promise<{ initIndexTables: number[][][], initCheckTables: CheckTables, initChoiceTables: ChoiceTables,

@@ -4,7 +4,7 @@ import Image from 'next/image';
 type Props = {
   showJudge: boolean;
   judgeTimer: NodeJS.Timeout | undefined;
-  selectedOption: Answer;
+  selectedAnswer: Answer;
   problem: Problem;
   afterJudge: () => void;
 };
@@ -13,8 +13,8 @@ export default function Judge({ children, props }: {
   children: React.ReactNode,
   props: Props,
 }) {
-  const { showJudge, judgeTimer, selectedOption, problem, afterJudge } = props;
-  const isCorrect = (selectedOption === problem.answer);
+  const { showJudge, judgeTimer, selectedAnswer, problem, afterJudge } = props;
+  const isCorrect = (selectedAnswer === problem.answer);
 
   return (
     <div className="relative">

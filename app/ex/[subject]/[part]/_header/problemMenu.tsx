@@ -12,33 +12,16 @@ type Props = {
     chapters: Chapter[];
     problemIndexes: ProblemIndex[];
     moveView: (destinationCount: number, reset?: boolean) => void;
+    jumpChapter: (chapter: Chapter) =>void;
   }
 }
 
 export default function ProblemMenu({ props }: Props) {
-  const { count, problemLength, isResult, selectedAnswers, problemIndexes, chapters, moveView } = props;
+  const { count, problemLength, isResult, selectedAnswers, problemIndexes, chapters, moveView, jumpChapter } = props;
   const chapterN0 = isResult ? undefined : problemIndexes[count].chapterN;
   const chapterTitle = typeof chapterN0 === "number" ? chapters[chapterN0].chapterTitle : "リザルト";
   const allAnswered = selectedAnswers.every(a => { return a !== undefined });
   const remainingProblem = selectedAnswers.filter(element => element === undefined).length;
-
-
-
-  // chapterの中の未解答問題の一番最初に飛ぶ
-  // すべてに回答している場合は第1問に飛ぶ
-  const jumpChapter = (chapter: Chapter) => {
-    let foundUndefined = false;
-    for (const jumpCount of chapter.counts) {
-      if (selectedAnswers[jumpCount] === undefined) {
-        moveView(jumpCount);
-        foundUndefined = true
-        break
-      }
-    }
-    if (!foundUndefined) {
-      moveView(chapter.counts[0]);
-    }
-  };
 
   const Marks = ({ chapter }: { chapter: Chapter }) => {
     return (

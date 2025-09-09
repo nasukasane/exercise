@@ -22,11 +22,13 @@ export default function ProblemFooter({ props }: Props) {
   const isAnswered = (selectedAnswer !== undefined); //解答済みフラグ
   const CenterButton = () => {
     if (isResult) {
+      // リザルト画面時
       if (selectedAnswers.some(a => a === undefined)) {
+        // 全問回答済みでない場合
         return (<div></div>)
       }
       else {
-        // リザルト画面時
+        // 全問回答済みの場合
         return (
           <button onClick={() => moveView(0, true)}
             className='w-full rounded-lg text-gray-200 hover:text-gray-50 bg-blue-600 hover:bg-blue-800 px-2 py-2 md:px-4 md:py-3' >

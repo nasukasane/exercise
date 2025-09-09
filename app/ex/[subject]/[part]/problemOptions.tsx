@@ -16,6 +16,7 @@ type Props = {
 export default function ProblemOptions({ props }: Props) {
   const { problem, selectedOption, selectedAnswer, setSelectedOption } = props;
 
+
   // 回答選択肢取得
   // 選択肢クリック時動作
   const handleClick = (index: number) => {

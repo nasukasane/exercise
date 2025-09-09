@@ -1,4 +1,5 @@
 import { Answer, Chapter, ProblemIndex } from "@/services/type";
+import { ExclamationCircleIcon } from "@heroicons/react/20/solid";
 import Image from "next/image";
 
 type Props = {
@@ -7,37 +8,41 @@ type Props = {
     selectedAnswers: Answer[];
     chapters: Chapter[];
     problemIndexes: ProblemIndex[];
-    moveView: (destinationCount: number, reset?: boolean) => void;
+    jumpChapter: (chapter:Chapter)=>void;
   }
 }
 
 // app/page.tsx
 
 // モックデータ
-export default function ProblemResult({props}: Props) {
-  const { problemLength, selectedAnswers, chapters, problemIndexes, moveView } = props;
-  const chapterCorrect: number[] = new Array(chapters.length).fill(0);
-  const sumCorrect = problemIndexes.reduce((sum, {chapterN, sectionN, pickN}, i)=> {
-      if(selectedAnswers[i] === undefined){
-        return sum;
-      } else {
-        const correct = Number(selectedAnswers[i] === chapters[chapterN].sections[sectionN].problems[pickN].answer)
-        chapterCorrect[chapterN] += correct
-        return sum + correct;
-      }
-    }, 0) ;
-  const score = Math.ceil(sumCorrect * 100 / problemLength);
+export default function ProblemResult({ props }: Props) {
+  const { problemLength, selectedAnswers, chapters, problemIndexes, jumpChapter } = props;
+  const chapterCorrect: number[] = new Array(chapters.length).fill(0); //chapterごとの正解数
+  const chapterDone: boolean[] = new Array(chapters.length).fill(true); //chapterごとの全問回答済みフラグ
+  const sumCorrect = problemIndexes.reduce((sum, { chapterN, sectionN, pickN }, i) => {
+    if (selectedAnswers[i] === undefined) {
+      chapterDone[chapterN] = false;
+      return sum;
+    } else {
+      const correct = Number(selectedAnswers[i] === chapters[chapterN].sections[sectionN].problems[pickN].answer)
+      chapterCorrect[chapterN] += correct
+      return sum + correct;
+    }
+  }, 0); //合計正解数
+  const score = Math.ceil(sumCorrect * 100 / problemLength); //100点満点スコア
+  const allDone = chapterDone.every(done => done);
 
   return (
     // 画面全体を占めるコンテナをflexboxで左右1:1に分割
-    <div className="md:flex w-full">
-      <div className="flex items-center justify-center flex-1 relative">
+    <div className="flex flex-col md:flex-row h-screen w-full">
+      <div className="flex items-center justify-center flex-1 relative  md:flex-row">
         {/* 下地の画像 picture1.png */}
         <Image
           src="/image/chilene.jpg" // publicディレクトリに配置した画像のパス
           alt="リザルト通知画像"
-          layout="fill"
-          objectFit="cover"
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          style={{objectFit: "contain"}}
         />
 
         <Image
@@ -50,26 +55,45 @@ export default function ProblemResult({props}: Props) {
       </div>
 
       <div className="md:flex-1 p-4 md:p-8">
-        <h1 className="flex justify-center mb-4 mx-auto text-red-600 text-2xl md:text-5xl">{score}点！</h1>
+        {allDone ?
+            <h1 className="flex justify-center mb-4 mx-auto text-red-600 text-2xl md:text-5xl">{score}点！</h1>
+          : <h1 className="flex justify-center mb-4 mx-auto text-red-600 text-base md:text-2xl">
+              <div className="w-6 mr-1 md:w-8 md:mr-2"><ExclamationCircleIcon /></div>
+              <div>まだ回答の途中です！</div>
+            </h1>
+        }
 
         <div>
-          <div className="flex border-b-2 border-gray-400 pb-2 text-sm md:text-xl">
-            <div className="flex-1"></div>
-            <div className="flex-1 text-center">正解数／問題数</div>
+          <div className="flex w-full border-b-2 border-gray-400 pb-2 text-sm md:text-xl">
+            <div className="flex-auto"></div>
+            <div className="w-[100px] text-center md:text-base md:w-[130px]">正解数／問題数</div>
           </div>
 
           {/* 表の行データ */}
           {chapters.map((chapter, chapterN) => (
-            <div key={chapterN} className="flex border-b border-gray-200 py-2 text-sm md:text-xl">
-              <div className="flex-1">{chapter.chapterTitle}</div>
-              <div className="flex-1 text-center">{chapterCorrect[chapterN]}／{chapters[chapterN].sumPickN}</div>
-            </div>
+            <button 
+              key={chapterN} 
+              className={`flex w-full border-b border-gray-200 py-2 text-sm md:text-xl ${chapterDone[chapterN] || "bg-red-200 hover:bg-red-300"}`}
+              onClick={()=>{jumpChapter(chapter)}}
+              disabled={chapterDone[chapterN]}
+            >
+              <div className="flex-auto mr-2">{chapter.chapterTitle}</div>
+              <div className="w-[100px] text-center md:w-[130px]">
+                {chapterDone[chapterN] ?
+                    `${chapterCorrect[chapterN]}／${chapters[chapterN].sumPickN}`
+                  : <div className="text-slate-100 bg-red-600 rounded-lg mx-2">途中</div>
+                }
+              </div>
+            </button>
           ))}
 
-          <div className="flex border-t-2 border-gray-400 pb-2 text-sm md:text-xl">
-            <div className="flex-1">合計</div>
-            <div className="flex-1 text-center">{sumCorrect}／{problemLength}</div>
-          </div>
+          {
+            allDone && (
+              <div className="flex border-t-2 border-gray-400 pb-2 text-sm md:text-xl">
+                <div className="flex-auto mr-2 text-center">合計</div>
+                <div className="w-[100px] text-center md:w-[130px]">{sumCorrect}／{problemLength}</div>
+              </div>)
+          }
         </div>
       </div>
     </div>

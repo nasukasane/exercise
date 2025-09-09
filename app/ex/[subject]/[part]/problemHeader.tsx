@@ -15,6 +15,7 @@ type Props = {
     chapters: Chapter[];
     problemIndexes: ProblemIndex[];
     moveView: (destinationCount: number, reset?: boolean) => void;
+    jumpChapter: (chapter: Chapter)=>void;
   }
 }
 

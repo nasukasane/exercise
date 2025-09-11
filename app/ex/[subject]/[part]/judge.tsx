@@ -2,26 +2,25 @@ import { Answer, Problem } from '@/services/type';
 import Image from 'next/image';
 
 type Props = {
-  showJudge: boolean;
+  judgeOption: undefined | Answer;
   judgeTimer: NodeJS.Timeout | undefined;
-  selectedAnswer: Answer;
   problem: Problem;
-  afterJudge: () => void;
+  afterJudge: (selectedOption: Answer) => void;
 };
 
 export default function Judge({ children, props }: {
   children: React.ReactNode,
   props: Props,
 }) {
-  const { showJudge, judgeTimer, selectedAnswer, problem, afterJudge } = props;
-  const isCorrect = (selectedAnswer === problem.answer);
+  const { judgeOption, judgeTimer, problem, afterJudge } = props;
+  const isCorrect = (judgeOption === problem.answer);
 
   return (
-    <div className="relative">
+    <div className="relative size-full">
       {children}
 
       {/* ロック状態であればオーバーレイを表示 */}
-      {showJudge && (
+      {judgeOption !== undefined && (
         <button
           className={`absolute inset-0 z-50 flex items-center justify-center
             ${isCorrect ? 'bg-green-200/50' : 'bg-black/50'} `}
@@ -29,7 +28,7 @@ export default function Judge({ children, props }: {
           onClick={(e) => {
             e.stopPropagation();
             clearTimeout(judgeTimer);
-            afterJudge();
+            afterJudge(judgeOption);
           }
 
           }

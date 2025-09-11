@@ -13,7 +13,7 @@ export function GlobalNav() {
   const close = () => setIsOpen(false);
 
   return (
-    <div className="fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-white max-md:hidden md:bottom-0 md:z-auto md:w-72 md:border-b-0 md:border-r md:border-gray-800">
+    <div className="fixed top-0 z-10 flex w-full flex-col border-b border-gray-800 bg-white md:bottom-0 md:z-auto md:w-72 md:border-b-0 md:border-r md:border-gray-800">
       <div className="flex h-14 items-center px-4 py-4 md:h-auto">
         <Link
           href="/"
@@ -32,7 +32,7 @@ export function GlobalNav() {
       </div>
       <button
         type="button"
-        className="group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4 md:hidden"
+        className="group absolute right-0 top-0 flex h-14 items-center gap-x-2 px-4"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="font-medium text-gray-800 group-hover:text-gray-1000">

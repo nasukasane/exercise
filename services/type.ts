@@ -1,12 +1,13 @@
 export type Problem = {
-  optionUseMathJ?: boolean;
+  optionUseTex?: boolean;
   optionType: "4x1" | "2x2" | "numpad";
   problemText: string;
-  problemMathJ?: string;
+  problemTex?: string;
   answer: Answer;
+  optionStringSize?: "s" | "ss";
   options?: string[];
   explanationText: string;
-  explanationMathJ: string;
+  explanationTex: string;
 };
 
 export type Section = {

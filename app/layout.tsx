@@ -1,6 +1,8 @@
 import '@/styles/globals.css';
-import { GlobalNav } from '@/ui/global-nav';
+import HeaderMenu from '@/ui/headerMenu';
 import { Metadata } from 'next';
+import VolumeContext from './volumeContext';
+import MenuContext from './menuContext';
 
 export const metadata: Metadata = {
   title: {
@@ -21,17 +23,25 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
-    // <html lang="ja" className="[color-scheme:dark]">
     <html lang="ja">
-      {/* <body className="overflow-y-scroll bg-gray-1100 bg-[url('/grid.svg')] pb-36"> */}
-      {/* <body className="overflow-y-scroll bg-gray-100 pb-36"> */}
-      <body className="bg-gray-100">
-        <GlobalNav />
-        <div className="mx-auto max-w-6xl space-y-2 px-2 md:px-2 md:pl-72">
-          {children}
+      <body className="flex flex-col md:flex-row h-screen bg-gray-50 font-sans">
+        <div className="hidden bg-slate-400 md:block md:w-[250px] p-2 md:flex-none">
+          めにゅー
+        </div>
+        <div className='mx-auto max-w-4xl size-full'>
+          <VolumeContext>
+            <MenuContext>
+              <div className="size-full grid grid-cols-1 grid-rows-[40px_1fr] md:grid-rows-[50px_1fr]">
+                <HeaderMenu />
+                {children}
+              </div>
+            </MenuContext>
+          </VolumeContext>
         </div>
       </body>
+
     </html>
   );
 }

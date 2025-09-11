@@ -25,17 +25,17 @@ export const mainMenu: { name: string; slug: string; items: Item[] }[] = [
     items: [
       {
         name: '演習1',
-        slug: 'ex/linear/part1',
+        slug: 'ex/linear/1',
         description: '行列とベクトルの足し算と掛け算',
       },
       {
         name: '演習2',
-        slug: 'ex/linear/part2',
+        slug: 'ex/linear/2',
         description: '基本的な行列の定義',
       },
       {
         name: '演習3',
-        slug: 'ex/linear/part3',
+        slug: 'ex/linear/3',
         description: '逆行列と行列式',
       },
     ],

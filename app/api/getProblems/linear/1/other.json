@@ -2,23 +2,23 @@
   "sections":[
     {
       "sectionTitle": "2×2行列のスカラー倍",
-      "pick" : 1,
-      "problems":[
+      "pick": 1,
+      "problems": [
         {
           "optionType": "numpad",
           "problemText": "次のスカラーと行列の掛け算の式で、「？」に入る数はどれ？",
-          "problemMathJ": "3[(2,1),(3,0)]=[(＊,＊),(？,＊)]",
+          "problemTex": "3\\begin{pmatrix} 2 & 1 \\\\ 3 & 0 \\end{pmatrix} = \\begin{pmatrix} * & * \\\\ ? & * \\end{pmatrix}",
           "answer": 9,
           "explanationText": "ベクトルのスカラー倍のやり方と一緒。",
-          "explanationMathJ": "k[(a,b),(c,d)]=[(ka,kb),(kc,kd)]"
+          "explanationTex": "k\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = \\begin{pmatrix} ka & kb \\\\ kc & kd \\end{pmatrix}"
         },
         {
           "optionType": "numpad",
           "problemText": "次のスカラーと行列の掛け算の式で、「？」に入る数はどれ？",
-          "problemMathJ": "3[(0,2),(3,1)]=[(＊,＊),(＊,？)]",
+          "problemTex": "3\\begin{pmatrix} 0 & 2 \\\\ 3 & 1 \\end{pmatrix} = \\begin{pmatrix} * & * \\\\ * & ? \\end{pmatrix}",
           "answer": 3,
           "explanationText": "ベクトルのスカラー倍のやり方と一緒。",
-          "explanationMathJ": "k[(a,b),(c,d)]=[(ka,kb),(kc,kd)]"
+          "explanationTex": "k\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = \\begin{pmatrix} ka & kb \\\\ kc & kd \\end{pmatrix}"
         }
       ]
     }

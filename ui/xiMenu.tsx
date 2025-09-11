@@ -2,16 +2,15 @@ import { Bars3Icon } from '@heroicons/react/24/solid';
 import { mainMenu} from '@/lib/main-menu';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import Link from 'next/link';
-import { IconMenuButton } from './iconButton';
 
 
 export default function XiMenu() {
   return (
     <div className='md:hidden'>
       <Menu>
-        <IconMenuButton>
+        <MenuButton className="w-full rounded-lg text-slate-600 p-2 hover:text-slate-800 hover:bg-slate-300">
           <Bars3Icon className="" />
-        </IconMenuButton>
+        </MenuButton>
 
         <MenuItems
           transition

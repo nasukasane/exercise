@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
-import { MathJax, MathJaxContext } from "better-react-mathjax";
 import { Answer, Problem } from "@/services/type";
-import { jaxConfig } from "@/services/jaxConfig";
+import { BlockMath } from 'react-katex';
+import 'katex/dist/katex.min.css';
 
 type Props = {
   props: {
@@ -33,14 +33,10 @@ export default function ProblemOptions({ props }: Props) {
         <div className="relative p-2 md:p-4">
           <input type="radio" className="absolute top-0 left-0 m-1 w-3 h-3 md:m-2 md:w-4 md:h-4" checked={radioChecked} readOnly disabled />
           {/* 選択肢 */}
-          <div className="text-base md:text-2xl" >
-            {problem.optionUseMathJ ?
+          <div className={`text-base md:text-2xl ${problem.optionStringSize==='s' && 'text-sm md:text-xl'} ${problem.optionStringSize==='ss' && 'text-xs md:text-base'}`} >
+            {problem.optionUseTex ?
               // 数式表示
-              <MathJaxContext config={jaxConfig}>
-                <MathJax hideUntilTypeset={"first"} className="text-xl">
-                  {'`' + optionText + '`'}
-                </MathJax>
-              </MathJaxContext>
+              <BlockMath math={optionText}/>
               // 文字列表示
               : optionText}
           </div>

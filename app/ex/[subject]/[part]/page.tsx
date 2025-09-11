@@ -7,8 +7,6 @@ export default async function Page({ params }: {
   const {chapters, problemIndexes} = await getProblems({subject, part});
 
   return (
-    <div>
-      <ProblemView props={{chapters, problemIndexes}}/>
-    </div>
+    <ProblemView props={{chapters, problemIndexes}}/>
   );
 }

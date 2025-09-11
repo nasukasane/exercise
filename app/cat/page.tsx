@@ -4,7 +4,7 @@ import { getProblems } from "@/services/getProblems"
 import Checker from "./checker";
 
 export default async function Page() {
-  const {chapters, problemIndexes} = await getProblems({subject:"linear", part:"part1"});
+  const {chapters, problemIndexes} = await getProblems({subject:"linear", part:"1"});
   // console.log(chapters);
   console.log(problemIndexes);
   return (

@@ -1,23 +1,17 @@
+
+import { MenuVariablesContext } from '@/app/menuContext';
 import { Answer, Chapter, ProblemIndex } from '@/services/type';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
+import { useContext } from 'react';
 
 
-type Props = {
-  props: {
-    isResult: boolean;
-    count: number;
-    problemLength: number;
-    selectedAnswers: Answer[];
-    chapters: Chapter[];
-    problemIndexes: ProblemIndex[];
-    moveView: (destinationCount: number, reset?: boolean) => void;
-    jumpChapter: (chapter: Chapter) =>void;
+export default function ProblemMenu() {
+  const menuVariables = useContext(MenuVariablesContext);
+  if (menuVariables === undefined) {
+    return (<></>)
   }
-}
-
-export default function ProblemMenu({ props }: Props) {
-  const { count, problemLength, isResult, selectedAnswers, problemIndexes, chapters, moveView, jumpChapter } = props;
+  const { count, problemLength, isResult, selectedAnswers, problemIndexes, chapters, moveView, jumpChapter } = menuVariables;
   const chapterN0 = isResult ? undefined : problemIndexes[count].chapterN;
   const chapterTitle = typeof chapterN0 === "number" ? chapters[chapterN0].chapterTitle : "リザルト";
   const allAnswered = selectedAnswers.every(a => { return a !== undefined });

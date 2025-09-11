@@ -11,7 +11,7 @@ type Props = {
     selectedAnswer: Answer;
     selectedAnswers: Answer[];
     moveView: (destinationCount: number, reset?: boolean) => void;
-    submitAnswer: () => void;
+    submitAnswer: (selectedOption: Answer) => void;
   }
 }
 
@@ -43,7 +43,7 @@ export default function ProblemFooter({ props }: Props) {
       // 問題画面時
       const canSubmit = (selectedOption !== undefined);
       return (
-        <button onClick={submitAnswer} disabled={!canSubmit}
+        <button onClick={()=>submitAnswer(selectedOption)} disabled={!canSubmit}
           className={`w-full rounded-lg text-gray-200 hover:text-gray-50 px-2 py-2 md:px-4 md:py-3
           ${canSubmit ? 'bg-blue-600 hover:bg-blue-800' : 'bg-gray-600 '}`} >
           提出

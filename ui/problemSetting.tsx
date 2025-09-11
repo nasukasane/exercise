@@ -1,13 +1,12 @@
 import { Cog6ToothIcon } from '@heroicons/react/24/solid';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
-import { IconMenuButton } from './iconButton';
 
 export default function ProblemSetting() {
   return (
     <Menu>
-      <IconMenuButton>
+      <MenuButton className="w-full rounded-lg text-slate-600 p-2 hover:text-slate-800 hover:bg-slate-300">
         <Cog6ToothIcon />
-      </IconMenuButton>
+      </MenuButton>
 
       <MenuItems
         transition

@@ -34,15 +34,15 @@ export default function ProblemResult({ props }: Props) {
 
   return (
     // 画面全体を占めるコンテナをflexboxで左右1:1に分割
-    <div className="flex flex-col md:flex-row h-screen w-full">
-      <div className="flex items-center justify-center flex-1 relative  md:flex-row">
+    <div className="flex flex-col md:flex-row w-full">
+      <div className="flex items-center justify-center flex-1 relative md:flex-row">
         {/* 下地の画像 picture1.png */}
         <Image
           src="/image/chilene.jpg" // publicディレクトリに配置した画像のパス
           alt="リザルト通知画像"
-          fill
-          sizes="(max-width: 768px) 100vw, 33vw"
-          style={{objectFit: "contain"}}
+          width={600} // 画像の幅
+          height={600} // 画像の高さ
+          className="px-10 md:px-0"
         />
 
         <Image
@@ -50,7 +50,7 @@ export default function ProblemResult({ props }: Props) {
           alt="リザルト通知画像"
           width={100} // 画像の幅
           height={100} // 画像の高さ
-          className="absolute top-10 left-10" // 左上に配置
+          className="absolute top-5 left-10 md:top-10 md:left-10" // 左上に配置
         />
       </div>
 

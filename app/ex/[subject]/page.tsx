@@ -1,8 +1,9 @@
-export default async function Page({ params }: { params: { subject: string } }) {
-  
+export default async function Page({ params }: {
+   params: Promise<{ subject: string} >} ) {
+  const {subject} = await params;
   return (
     <div>
-      <p>{params.subject}</p>
+      <p>ここは{subject}</p>
     </div>
   );
 }

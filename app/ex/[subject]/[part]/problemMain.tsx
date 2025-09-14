@@ -15,7 +15,7 @@ export default function ProblemMain({ props }: Props) {
 
   function ToSolve() {
     return (
-      <div className="pt-1 md:pt-2">
+      <div className="pt-4">
         {problem.problemText}
         <div className="pb-1 text-sm md:pb-2 md:text-xl">
           {problem.problemTex &&  <BlockMath math={problem.problemTex} />}

@@ -30,7 +30,7 @@ export default function ProblemOptions({ props }: Props) {
     const ButtonContent = () => {
       const radioChecked = (optionIndex === selectedOption || optionIndex === selectedAnswer)
       return (
-        <div className="relative p-2 md:p-4">
+        <div className={`relative ${problem.optionUseTex ? 'p-0' : 'p-2 md:p-4'}`}>
           <input type="radio" className="absolute top-0 left-0 m-1 w-3 h-3 md:m-2 md:w-4 md:h-4" checked={radioChecked} readOnly disabled />
           {/* 選択肢 */}
           <div className={`text-base md:text-2xl ${problem.optionStringSize==='s' && 'text-sm md:text-xl'} ${problem.optionStringSize==='ss' && 'text-xs md:text-base'}`} >
@@ -79,7 +79,7 @@ export default function ProblemOptions({ props }: Props) {
   if (problem.options !== undefined) {
     return (
       <div className={`${problem.optionType === "2x2" ?
-      "grid gap-5 grid-cols-2" :
+      "grid gap-2 grid-cols-2" :
       "grid grid-cols-1"}`}>
         {problem.options.map((optionText, optionIndex) => {
           return (<OptionButton key={optionIndex} optionIndex={optionIndex} optionText={optionText} />)

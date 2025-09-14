@@ -1,8 +1,11 @@
 import '@/styles/globals.css';
 import HeaderMenu from '@/ui/headerMenu';
 import { Metadata } from 'next';
-import VolumeContext from './volumeContext';
-import MenuContext from './menuContext';
+import VolumeContext from './_contexts/volumeContext';
+import MenuContext from './_contexts/menuContext';
+import LeftMenu from '@/ui/leftMenu';
+import CharacterContext from './_contexts/characterContext';
+import TestModeContext from './_contexts/testModeContext';
 
 export const metadata: Metadata = {
   title: {
@@ -27,16 +30,20 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className="flex flex-col md:flex-row h-screen bg-gray-50 font-sans">
-        <div className="hidden bg-slate-400 md:block md:w-[250px] p-2 md:flex-none">
-          めにゅー
+        <div className="hidden bg-slate-200 md:block md:w-[250px] p-2 md:flex-none">
+          <LeftMenu />
         </div>
-        <div className='mx-auto max-w-4xl size-full'>
+        <div className='mx-auto size-full'>
           <VolumeContext>
             <MenuContext>
-              <div className="size-full grid grid-cols-1 grid-rows-[40px_1fr] md:grid-rows-[50px_1fr]">
-                <HeaderMenu />
-                {children}
-              </div>
+              <CharacterContext>
+                <TestModeContext>
+                  <div className="size-full grid grid-cols-1 grid-rows-[40px_1fr] md:grid-rows-[50px_1fr]">
+                    <HeaderMenu />
+                    {children}
+                  </div>
+                </TestModeContext>
+              </CharacterContext>
             </MenuContext>
           </VolumeContext>
         </div>

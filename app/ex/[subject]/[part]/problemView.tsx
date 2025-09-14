@@ -7,8 +7,8 @@ import Judge from "./judge";
 import ProblemResult from "./problemResult";
 import getSounds from "@/services/getSounds";
 import ProblemInput from "./problemInput";
-import { useMenuVariablesSetterContext } from "@/app/menuContext";
-import { useVolumeContext } from "@/app/volumeContext";
+import { useMenuVariablesSetterContext } from "@/app/_contexts/menuContext";
+import { useVolumeContext } from "@/app/_contexts/volumeContext";
 
 
 type Props = {
@@ -126,8 +126,8 @@ export default function ProblemView({ props }: { props: Props }) {
 
   return (
     <Judge props={judgeProps}>
-      <div className="h-full bg-slate-100 grid grid-cols-1 grid-rows-[1fr_auto] md:grid-rows-[1fr_auto]">
-        <div className="overflow-y-auto ">
+      <div className="absolute -top-[50px] pt-[40px]  h-screen w-full bg-slate-100 flex flex-col">
+        <div className="flex-1 overflow-y-auto ">
           {isResult ? <ProblemResult props={problemResultProps} />
             : <ProblemMain props={problemMainProps} />}
         </div>

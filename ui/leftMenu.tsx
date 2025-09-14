@@ -11,7 +11,7 @@ function GlobalNavItem({
   close,
 }: {
   item: Item;
-  close: () => false | void;
+  close?: () => void;
 }) {
   const segment = useSelectedLayoutSegment();
   const isActive = item.slug === segment;
@@ -21,10 +21,10 @@ function GlobalNavItem({
       onClick={close}
       href={`/${item.slug}`}
       className={clsx(
-        'py-2 block rounded-md text-sm font-medium hover:text-gray-300',
+        'pl-2 py-2 block rounded-md text-sm font-medium hover:bg-slate-400 md:text-xl',
         {
-          'text-gray-400 hover:bg-gray-800': !isActive,
-          'text-white': isActive,
+          'text-gray-700 hover:text-gray-900': !isActive,
+          'text-gray-500 hover:text-gray-700': isActive,
         },
       )}
     >
@@ -33,22 +33,13 @@ function GlobalNavItem({
   );
 }
 
-export default function LeftMenu() {
-  const [isOpen, setIsOpen] = useState(false);
-  const close = () => setIsOpen(false);
-
-  return (
-    <div
-      className={clsx('overflow-y-auto ', {
-        'fixed inset-x-0 bottom-0 top-14 mt-px bg-black': isOpen,
-        hidden: !isOpen,
-      })}
-    >
-      <nav className="px-2 pb-24 pt-5">
+export default function LeftMenu({close}:{close?:()=>void}) {
+  return(
+      <nav className="px-1 md:px-2 pt-2">
         {mainMenu.map((section) => {
           return (
             <div key={section.name}>
-              <div className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-gray-400/80">
+              <div className="mb-2 px-1 md:px-3 tracking-wider">
                 {/* <div>{section.name}</div> */}
                 <GlobalNavItem key={section.slug} item={section} close={close} />
               </div>
@@ -62,7 +53,6 @@ export default function LeftMenu() {
           );
         })}
       </nav>
-    </div>
 
   )
 }

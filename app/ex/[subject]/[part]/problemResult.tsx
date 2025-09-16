@@ -15,17 +15,19 @@ function getImageUrl(
     // 優秀判定
     if (isExcellent) {
       stampImageUrl = '/image/excellentStamp.png';
-      characterProperty.hasExcellentResultImage &&
-        (resultImageUrl = `/image/${cheerCharacter}/excellentResult.png`);
+      if(characterProperty.hasExcellentResultImage){
+        resultImageUrl = `/image/${cheerCharacter}/excellentResult.png`;
+      }
       // 凡判定
     } else {
       stampImageUrl = '/image/normalStamp.png';
-      characterProperty.hasNormalResultImage &&
-        (resultImageUrl = `/image/${cheerCharacter}/normalResult.png`);
+      if(characterProperty.hasNormalResultImage){
+        resultImageUrl = `/image/${cheerCharacter}/normalResult.png`;
+      }
     }
     // 未完
-  } else {
-    characterProperty.hasNotDoneImage && (resultImageUrl = `/image/${cheerCharacter}/notDoneResult.png`);
+  } else if (characterProperty.hasNotDoneImage){ 
+    resultImageUrl = `/image/${cheerCharacter}/notDoneResult.png`;
   }
 
   return { resultImageUrl, stampImageUrl };

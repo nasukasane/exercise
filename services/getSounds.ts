@@ -1,11 +1,14 @@
-import { useCharacterContext } from "@/app/_contexts/characterContext";
 import useSound from "use-sound";
-import { characterProperty } from "./characterList";
+import { CharacterProperty } from "./type";
 
-export default function getSounds(winStreak : number, volume: number){
-  const cheerCharacter = useCharacterContext();
-  const correctSoundN = characterProperty[cheerCharacter].correctSoundN;
-  const wrongSoundN = characterProperty[cheerCharacter].wrongSoundN;
+export default function getSounds(
+  winStreak : number, 
+  volume: number, 
+  cheerCharacter:string,
+  characterProperty: CharacterProperty,
+){
+  const correctSoundN = characterProperty.correctSoundN;
+  const wrongSoundN = characterProperty.wrongSoundN;
   
   const cappedWinStreak = Math.min(correctSoundN.length-1, winStreak);
   const correctRandomIndex = Math.floor(Math.random() * (correctSoundN[cappedWinStreak]));

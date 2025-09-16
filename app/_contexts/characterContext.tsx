@@ -1,9 +1,10 @@
 'use client';
-import { defaultCharacter } from "@/services/characterList";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 
 const CharacterVariablesContext = createContext<string | undefined>(undefined);
 const CharacterVariablesSetterContext = createContext<Dispatch<SetStateAction<string>> | undefined>(undefined);
+
+const defaultCharacter = "pattadol";
 
 export default function CharacterContext({
   children,

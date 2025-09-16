@@ -1,6 +1,6 @@
 'use client';
 
-import { Chapter, ProblemIndex, Answer } from "@/services/type"
+import { Chapter, ProblemIndex, Answer, WinPerCharacter } from "@/services/type"
 import { useEffect, useState } from "react";
 import ProblemMain from "./problemMain";
 import Judge from "./judge";
@@ -9,6 +9,9 @@ import getSounds from "@/services/getSounds";
 import ProblemInput from "./problemInput";
 import { useMenuVariablesSetterContext } from "@/app/_contexts/menuContext";
 import { useVolumeContext } from "@/app/_contexts/volumeContext";
+import getJudgeImage from "@/services/getJudgeImage";
+import { useCharacterContext } from "@/app/_contexts/characterContext";
+import { getCharacterList, getCharacterProperty } from "@/services/characterList";
 
 
 type Props = {
@@ -22,15 +25,23 @@ export default function ProblemView({ props }: { props: Props }) {
   const [count, setCount] = useState(0); //問題番号
   const [selectedAnswers, setSelectedAnswers] =
     useState<Answer[]>(new Array(problemLength).fill(undefined)); //回答ログ
+  const cheerCharacter = useCharacterContext();
 
   //結果表示
   const [judgeOption, setJudgeOption] = useState<undefined | Answer>(undefined); //結果表示フラグ
   const [judgeTimer, setJudgeTimer] = useState<NodeJS.Timeout | undefined>(undefined); //判定表示時に使用するタイマーのID
   const [winStreak, setWinStreak] = useState(0); //連勝数
+  const characterProperty = getCharacterProperty()[cheerCharacter];
+  const {correctCharacterUrl, wrongCharacterUrl} = getJudgeImage(winStreak, cheerCharacter, characterProperty);
+  const [winPerCharacter, setWinPerCharacter] = useState<WinPerCharacter>(
+    getCharacterList().reduce((accumulator:{[character:string]:number}, currentValue:string) => {
+    accumulator[currentValue] = 0;
+    return accumulator;
+  }, {}));
 
   // 音声
   const { speakerOn, volume } = useVolumeContext();
-  const { playCorrect, playWrong } = getSounds(winStreak, volume);
+  const { playCorrect, playWrong } = getSounds(winStreak, volume, cheerCharacter, characterProperty);
 
   // 画面遷移
   const moveView = (destinationCount: number, reset = false) => {
@@ -47,12 +58,18 @@ export default function ProblemView({ props }: { props: Props }) {
     }, 1050);
     setJudgeOption(selectedOption); //判定画像表示
     setJudgeTimer(judgeTimer); //タイマーID取得（クリック時タイマー解除のために）
-    //正解/不正解音声
+    //正解時処理
     if (selectedOption === problem.answer) {
+      setWinPerCharacter(winPerCharacter=>{
+        const ret = {...winPerCharacter};
+        ret[cheerCharacter] += 1;
+        return ret
+      })
       if (speakerOn) {
         playCorrect();
       }
       setWinStreak(winStreak + 1);
+    //不正解時処理
     } else {
       if (speakerOn) {
         playWrong();
@@ -110,14 +127,10 @@ export default function ProblemView({ props }: { props: Props }) {
 
   //props設定
   const problemResultProps = {
-    problemLength, selectedAnswers, chapters, problemIndexes,
-    jumpChapter
+    problemLength, cheerCharacter, selectedAnswers, chapters, problemIndexes,
+    characterProperty, winPerCharacter, jumpChapter
   };
-  const judgeProps = { judgeOption, judgeTimer, problem, afterJudge };
-  // const problemHeaderProps = {
-  //   isResult, count, problemLength, selectedAnswers, chapters, problemIndexes,
-  //   moveView, jumpChapter
-  // };
+  const judgeProps = { judgeOption, judgeTimer, correctCharacterUrl, wrongCharacterUrl, problem, afterJudge };
   const problemMainProps = { problem, selectedAnswer };
   const problemInputProps = {
     count, isResult, isLastProblem, selectedAnswer,

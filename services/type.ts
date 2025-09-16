@@ -27,6 +27,25 @@ export type ProblemIndex = {
   pickN: number
 };
 
+export type WinPerCharacter = {
+  [character: string]: number,
+}
+
+export type CharacterProperty = {
+  correctSoundN: number[],
+  wrongSoundN: number,
+  correctImageN: number[],
+  wrongImageN: number
+  hasExcellentResultImage?: boolean,
+  hasNormalResultImage?: boolean,
+  hasNotDoneImage?: boolean
+}
+
+export type CharacterProperties = {
+  [character: string]: CharacterProperty;
+}
+
+
 export type PickSet = Set<number>;
 export type Answer = undefined | number;
 export type ChoiceTable = (number | PickSet)[];

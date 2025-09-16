@@ -3,7 +3,7 @@ import { Dialog, DialogPanel, Switch, Transition, TransitionChild } from '@headl
 import { useState } from 'react';
 import { SpeakerWithSlider } from './speakerButton';
 import Image from 'next/image';
-import { characterList } from '@/services/characterList';
+import { getCharacterList } from '@/services/characterList';
 import { useCharacterContext, useCharacterSetterContext } from '@/app/_contexts/characterContext';
 import { useTestModeContext, useTestModeSetterContext } from '@/app/_contexts/testModeContext';
 
@@ -22,7 +22,7 @@ function Contents() {
       {/* キャラクター設定 */}
       <div className='border-t py-2'>
         <div className='grid grid-cols-3 gap-4 '>
-          {characterList.map((characterName, index) => {
+          {getCharacterList().map((characterName, index) => {
             return (
               <button key={index} className={`flex justify-center rounded-full items-center w-[65px] h-[65px]
                  ${cheerCharacter === characterName && 'border-4 border-blue-600'}`}

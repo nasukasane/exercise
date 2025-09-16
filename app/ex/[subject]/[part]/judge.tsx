@@ -4,6 +4,8 @@ import Image from 'next/image';
 type Props = {
   judgeOption: undefined | Answer;
   judgeTimer: NodeJS.Timeout | undefined;
+  correctCharacterUrl: undefined|string;
+  wrongCharacterUrl: undefined|string;
   problem: Problem;
   afterJudge: (selectedOption: Answer) => void;
 };
@@ -12,7 +14,8 @@ export default function Judge({ children, props }: {
   children: React.ReactNode,
   props: Props,
 }) {
-  const { judgeOption, judgeTimer, problem, afterJudge } = props;
+  const { judgeOption, judgeTimer, correctCharacterUrl, wrongCharacterUrl,
+    problem, afterJudge } = props;
   const isCorrect = (judgeOption === problem.answer);
 
   return (
@@ -33,13 +36,27 @@ export default function Judge({ children, props }: {
 
           }
         >
-          <Image
-            src="/image/chilene.jpg" // publicディレクトリに配置した画像のパス
-            alt="判定画像"
-            width={200} // 画像の幅
-            height={200} // 画像の高さ
-            className={`${isCorrect ? 'animate-slide-in-fade' : 'animate-shake-x'} `}
-          />
+          <div className={`relative w-[400px] h-[400px] ${isCorrect ? 'animate-slide-in-fade' : 'animate-shake-x'} `}>
+            {/* 背景側 */}
+            <Image
+              src={`/image/${isCorrect ? "correctJudge" : "wrongJudge"}.png`}
+              alt="Correct text"
+              fill
+              className="absolute -top-20 z-10 object-contain"
+            />
+
+            {/* 前景側 */}
+            { correctCharacterUrl && wrongCharacterUrl &&
+            <Image
+              src={`${isCorrect ? correctCharacterUrl : wrongCharacterUrl}`}
+              alt="Celebration character"
+              width={150}
+              height={150}
+              className="absolute z-20 bottom-0"
+            />
+            }
+          </div>
+
         </button>
       )}
 

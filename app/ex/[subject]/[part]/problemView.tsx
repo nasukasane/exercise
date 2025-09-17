@@ -127,11 +127,11 @@ export default function ProblemView({ props }: { props: Props }) {
 
   //props設定
   const problemResultProps = {
-    problemLength, cheerCharacter, selectedAnswers, chapters, problemIndexes,
+    problemLength, selectedAnswers, chapters, problemIndexes,
     characterProperty, winPerCharacter, jumpChapter
   };
   const judgeProps = { judgeOption, judgeTimer, correctCharacterUrl, wrongCharacterUrl, problem, afterJudge };
-  const problemMainProps = { problem, selectedAnswer };
+  const problemMainProps = { problem, selectedAnswer, characterProperty };
   const problemInputProps = {
     count, isResult, isLastProblem, selectedAnswer,
     selectedAnswers, problem, moveView, submitAnswer

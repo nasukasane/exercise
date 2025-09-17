@@ -1,6 +1,6 @@
 
 import { MenuVariablesContext } from '@/app/_contexts/menuContext';
-import { Answer, Chapter, ProblemIndex } from '@/services/type';
+import { Chapter } from '@/services/type';
 import { Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/react';
 import { CheckIcon, ChevronDownIcon, ChevronRightIcon, QuestionMarkCircleIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { useContext } from 'react';
@@ -60,14 +60,14 @@ export default function ProblemMenu() {
           <div className='flex w-[240px] md:w-[400px] '>
             <ChevronDownIcon className="flex-none w-3 fill-gray-800 md:w-6" />
             <div className='flex-auto text-center'>{chapterTitle}</div>
-            <div className='flex-none bg-slate-300 text-xs w-10 md:text-lg md:w-20'>残り{remainingProblem}問</div>
+            <div className='flex-none bg-slate-300 text-xs md:text-lg md:w-20'>残り{remainingProblem}問</div>
           </div>
         </MenuButton>
 
         <MenuItems
           transition
           anchor="bottom start"
-          className="rounded-xl border max-w-[300px] border-gray-600 bg-white p-1
+          className="rounded-xl border z-20 max-w-[300px] border-gray-600 bg-white p-1
            transition duration-100 ease-out [--anchor-gap:var(--spacing-1)]
            focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0  md:max-w-[500px]"
         >

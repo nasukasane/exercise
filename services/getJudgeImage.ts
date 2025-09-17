@@ -1,4 +1,3 @@
-import { getCharacterProperty } from "./characterList";
 import { CharacterProperty } from "./type";
 
 export default function getJudgeImage(

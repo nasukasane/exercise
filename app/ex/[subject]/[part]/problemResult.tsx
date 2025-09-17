@@ -6,7 +6,6 @@ import Image from "next/image";
 function getImageUrl(
   allDone: boolean,
   isExcellent: boolean,
-  cheerCharacter: string,
   characterProperty: CharacterProperty
 ) {
   let resultImageUrl = '/image/defaultResult.png';
@@ -16,18 +15,18 @@ function getImageUrl(
     if (isExcellent) {
       stampImageUrl = '/image/excellentStamp.png';
       if(characterProperty.hasExcellentResultImage){
-        resultImageUrl = `/image/${cheerCharacter}/excellentResult.png`;
+        resultImageUrl = `/image/${characterProperty.characterName}/excellentResult.png`;
       }
       // 凡判定
     } else {
       stampImageUrl = '/image/normalStamp.png';
       if(characterProperty.hasNormalResultImage){
-        resultImageUrl = `/image/${cheerCharacter}/normalResult.png`;
+        resultImageUrl = `/image/${characterProperty.characterName}/normalResult.png`;
       }
     }
     // 未完
   } else if (characterProperty.hasNotDoneImage){ 
-    resultImageUrl = `/image/${cheerCharacter}/notDoneResult.png`;
+    resultImageUrl = `/image/${characterProperty.characterName}/notDoneResult.png`;
   }
 
   return { resultImageUrl, stampImageUrl };
@@ -36,7 +35,6 @@ function getImageUrl(
 type Props = {
   props: {
     problemLength: number;
-    cheerCharacter: string;
     selectedAnswers: Answer[];
     chapters: Chapter[];
     problemIndexes: ProblemIndex[];
@@ -48,7 +46,7 @@ type Props = {
 
 // モックデータ
 export default function ProblemResult({ props }: Props) {
-  const { problemLength, cheerCharacter, selectedAnswers, chapters, problemIndexes,
+  const { problemLength, selectedAnswers, chapters, problemIndexes,
     characterProperty, winPerCharacter, jumpChapter } = props;
   const chapterCorrect: number[] = new Array(chapters.length).fill(0); //chapterごとの正解数
   const chapterDone: boolean[] = new Array(chapters.length).fill(true); //chapterごとの全問回答済みフラグ
@@ -64,10 +62,10 @@ export default function ProblemResult({ props }: Props) {
   }, 0); //合計正解数
   const score = Math.ceil(sumCorrect * 100 / problemLength); //100点満点スコア
   const allDone = chapterDone.every(done => done);
-  const isExcellent = (winPerCharacter[cheerCharacter] / problemLength) > 0.9 //優秀判定
+  const isExcellent = (winPerCharacter[characterProperty.characterName] / problemLength) > 0.9 //優秀判定
 
   // 画像URL 全て回答済みか/優秀か/凡か
-  const { resultImageUrl, stampImageUrl } = getImageUrl(allDone, isExcellent, cheerCharacter, characterProperty);
+  const { resultImageUrl, stampImageUrl } = getImageUrl(allDone, isExcellent, characterProperty);
 
   return (
     // 画面全体を占めるコンテナをflexboxで左右1:1に分割

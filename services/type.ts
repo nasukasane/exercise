@@ -32,13 +32,15 @@ export type WinPerCharacter = {
 }
 
 export type CharacterProperty = {
+  characterName: string,
   correctSoundN: number[],
   wrongSoundN: number,
   correctImageN: number[],
   wrongImageN: number
   hasExcellentResultImage?: boolean,
   hasNormalResultImage?: boolean,
-  hasNotDoneImage?: boolean
+  hasNotDoneImage?: boolean,
+  hasExplanationImage?: boolean
 }
 
 export type CharacterProperties = {

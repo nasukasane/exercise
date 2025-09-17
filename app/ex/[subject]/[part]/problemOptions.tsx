@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
-import { Answer, Problem } from "@/services/type";
+import { Answer, Problem, TextOut } from "@/services/type";
 import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
+import GetTextOut from "@/ui/getTextOut";
 
 type Props = {
   props: {
@@ -24,22 +25,17 @@ export default function ProblemOptions({ props }: Props) {
   };
 
   // ボタン本体
-  const OptionButton = ({ optionIndex, optionText }:
-    { optionIndex: number, optionText: string }) => {
+  const OptionButton = ({ optionIndex, optionText, textOut }:
+    { optionIndex: number, optionText?: string, textOut?: TextOut }) => {
     // ボタン内容
     const ButtonContent = () => {
       const radioChecked = (optionIndex === selectedOption || optionIndex === selectedAnswer)
       return (
-        <div className={`relative ${problem.optionUseTex ? 'p-0' : 'p-2 md:p-4'}`}>
+        <div className={`relative`}>
           <input type="radio" className="absolute top-0 left-0 m-1 w-3 h-3 md:m-2 md:w-4 md:h-4" checked={radioChecked} readOnly disabled />
           {/* 選択肢 */}
-          <div className={`text-base md:text-2xl ${problem.optionStringSize==='s' && 'text-sm md:text-xl'} ${problem.optionStringSize==='ss' && 'text-xs md:text-base'}`} >
-            {problem.optionUseTex ?
-              // 数式表示
-              <BlockMath math={optionText}/>
-              // 文字列表示
-              : optionText}
-          </div>
+          {textOut && <GetTextOut props={{ type: textOut.type, size: textOut.size, text: textOut.text }} />}
+          {optionText && <GetTextOut props={{ type: 'string', size: 'b', text: optionText }} />}
         </div >
       )
     }
@@ -63,9 +59,9 @@ export default function ProblemOptions({ props }: Props) {
           disabled
           className={
             `rounded-lg border-2 text-gray-400
-              ${(optionIndex === problem.answer) ?
-                'bg-green-300 border-green-500 text-gray-800'  :
-                optionIndex === selectedAnswer ?
+              ${(optionIndex === problem.options.answer) ?
+              'bg-green-300 border-green-500 text-gray-800' :
+              optionIndex === selectedAnswer ?
                 'bg-red-200 border-red-300' : 'bg-gray-200 border-gray-400'}
             `}
         >
@@ -76,17 +72,7 @@ export default function ProblemOptions({ props }: Props) {
   }
 
   // 4択の場合
-  if (problem.options !== undefined) {
-    return (
-      <div className={`${problem.optionType === "2x2" ?
-      "grid gap-2 grid-cols-2" :
-      "grid grid-cols-1"}`}>
-        {problem.options.map((optionText, optionIndex) => {
-          return (<OptionButton key={optionIndex} optionIndex={optionIndex} optionText={optionText} />)
-        })}
-      </div>
-    );
-  } else {
+  if (problem.options.arrangement === "numpad") {
     // numpadの場合
     return (
       <div className="grid gap-2 grid-cols-5">
@@ -96,6 +82,19 @@ export default function ProblemOptions({ props }: Props) {
         })}
       </div>
     );
+  } else{
+    const textOuts = problem.options.textOuts;
+    if (textOuts) {
+      return (
+        <div className={`${problem.options.arrangement === "2x2" ?
+          "grid gap-2 grid-cols-2" :
+          "grid grid-cols-1"}`}>
+          {textOuts.map((textOut, optionIndex) => {
+            return (<OptionButton key={optionIndex} optionIndex={optionIndex} textOut={textOut} />)
+          })}
+        </div>
+      );
+    }
   }
 
 }

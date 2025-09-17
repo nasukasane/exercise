@@ -1,13 +1,20 @@
+export type OutType = 'string' | 'mathb' | 'mathi' | 'image';
+export type OutSize = 'ss' | 's' | 'b';
+
+export type TextOut ={
+  type: OutType;
+  size: OutSize;
+  text: string;
+};
+
 export type Problem = {
-  optionUseTex?: boolean;
-  optionType: "4x1" | "2x2" | "numpad";
-  problemText: string;
-  problemTex?: string;
-  answer: Answer;
-  optionStringSize?: "s" | "ss";
-  options?: string[];
-  explanationText: string;
-  explanationTex: string;
+  toSolve: TextOut[];
+  options: {
+    arrangement: "4x1" | "2x2" | "numpad";
+    answer: Answer;
+    textOuts?: TextOut[];
+  }
+  explanation: TextOut[];
 };
 
 export type Section = {

@@ -55,7 +55,7 @@ export default function ProblemResult({ props }: Props) {
       chapterDone[chapterN] = false;
       return sum;
     } else {
-      const correct = Number(selectedAnswers[i] === chapters[chapterN].sections[sectionN].problems[pickN].answer)
+      const correct = Number(selectedAnswers[i] === chapters[chapterN].sections[sectionN].problems[pickN].options.answer)
       chapterCorrect[chapterN] += correct
       return sum + correct;
     }

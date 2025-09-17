@@ -1,21 +1,31 @@
-import { Answer, CharacterProperty, Problem } from "@/services/type";
-import { BlockMath } from 'react-katex';
+import { Answer, CharacterProperty, Problem, TextOut } from "@/services/type";
+import GetTextOut from "@/ui/getTextOut";
 import 'katex/dist/katex.min.css';
 import Image from "next/image";
 
 
 function getExplanationStampUrl(isCorrect: boolean, characterProperty: CharacterProperty) {
   if (characterProperty.hasExplanationImage) {
-    const explanationStampUrl = isCorrect ? 
-      `/image/${characterProperty.characterName}/explanationCorrectStamp.png` : 
-      `/image/${characterProperty.characterName}/explanationWrongStamp.png` ;
+    const explanationStampUrl = isCorrect ?
+      `/image/${characterProperty.characterName}/explanationCorrectStamp.png` :
+      `/image/${characterProperty.characterName}/explanationWrongStamp.png`;
     return explanationStampUrl;
   }
   const explanationStampUrl = isCorrect ?
-   '/image/explanationCorrectStamp.png' :
-   '/image/explanationWrongStamp.png';
+    '/image/explanationCorrectStamp.png' :
+    '/image/explanationWrongStamp.png';
   return explanationStampUrl;
 }
+
+function RenderText({ textOut }: { textOut: TextOut[] }) {
+  return (
+    <div className="pt-4 pb-1 text-sm md:pb-2 md:text-xl">
+      {textOut.map(({ type, size, text }, index) => {
+        return <GetTextOut key={index} props={{type, size, text}}/>;
+      })}
+    </div>
+  )
+};
 
 type Props = {
   props: {
@@ -28,19 +38,9 @@ type Props = {
 export default function ProblemMain({ props }: Props) {
   const { problem, selectedAnswer, characterProperty } = props;
 
-  function ToSolve() {
-    return (
-      <div className="pt-4">
-        {problem.problemText}
-        <div className="pb-1 text-sm md:pb-2 md:text-xl">
-          {problem.problemTex && <BlockMath math={problem.problemTex} />}
-        </div>
-      </div>
-    )
-  };
 
   function Explanation() {
-    const isCorrect = (selectedAnswer === problem.answer);
+    const isCorrect = (selectedAnswer === problem.options.answer);
     const explanationStampUrl = getExplanationStampUrl(isCorrect, characterProperty);
     return (
       <div className={`relative rounded-lg text-sm md:text-xl ${isCorrect ? "bg-blue-200" : "bg-red-200"}`}>
@@ -48,7 +48,7 @@ export default function ProblemMain({ props }: Props) {
           解説
         </h2>
         <div className="pt-1 md:pt-2">
-          {problem.explanationText}
+          <RenderText textOut={problem.explanation} />
         </div>
         <div className="absolute right-0 bottom-0 opacity-50 pointer-events-none">
           <Image
@@ -60,9 +60,6 @@ export default function ProblemMain({ props }: Props) {
             className=""
           />
         </div>
-        <div className="relative z-10">
-          {problem.explanationTex && <BlockMath math={problem.explanationTex} />}
-        </div>
       </div>)
   };
 
@@ -70,7 +67,7 @@ export default function ProblemMain({ props }: Props) {
 
   return (
     <div className="text-center text-base md:text-2xl">
-      <ToSolve />
+      <RenderText textOut = {problem.toSolve} />
       {selectedAnswer !== undefined && <Explanation />}
     </div>
   )

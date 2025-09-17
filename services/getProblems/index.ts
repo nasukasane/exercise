@@ -16,7 +16,10 @@ function getRandomArray(n: number, l?: number) {
   return result.slice(0, length);
 }
 
-function getJson({ subject, part }: Props): Promise<{ chapters: Chapter[] }> {
+function getJson({ subject, part }: Props): Promise<{ 
+    chapters: Chapter[],
+    hasNext: boolean 
+  }> {
   const searchParams = new URLSearchParams({ subject, part });
   return fetch(path(`/api/getProblems?${searchParams}`))
     .then(handleSucceed)
@@ -25,9 +28,13 @@ function getJson({ subject, part }: Props): Promise<{ chapters: Chapter[] }> {
 
 
 export async function getProblems({ subject, part }: Props):
-  Promise<{ chapters: Chapter[], problemIndexes: ProblemIndex[] }> {
+  Promise<{ 
+    chapters: Chapter[], 
+    problemIndexes: ProblemIndex[], 
+    hasNext: boolean 
+  }> {
   const problemIndexes: ProblemIndex[] = [];
-  const { chapters } = await getJson({ subject, part });
+  const { chapters, hasNext } = await getJson({ subject, part });
   let count = 0;
 
   chapters.map((chapter, chapterN) => {
@@ -41,5 +48,5 @@ export async function getProblems({ subject, part }: Props):
   });
 
 
-  return { chapters, problemIndexes };
+  return { chapters, problemIndexes, hasNext };
 }

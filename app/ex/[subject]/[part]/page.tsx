@@ -4,9 +4,9 @@ import ProblemView from './problemView';
 export default async function Page({ params }: {
    params: Promise<{ subject: string, part: string } >} ) {
   const {subject, part} = await params;
-  const {chapters, problemIndexes} = await getProblems({subject, part});
+  const {chapters, problemIndexes, hasNext} = await getProblems({subject, part});
 
   return (
-    <ProblemView props={{chapters, problemIndexes}}/>
+    <ProblemView props={{chapters, problemIndexes, hasNext}}/>
   );
 }

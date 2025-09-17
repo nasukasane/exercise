@@ -16,7 +16,7 @@ export default function Judge({ children, props }: {
 }) {
   const { judgeOption, judgeTimer, correctCharacterUrl, wrongCharacterUrl,
     problem, afterJudge } = props;
-  const isCorrect = (judgeOption === problem.answer);
+  const isCorrect = (judgeOption === problem.options.answer);
 
   return (
     <div className="relative size-full">

@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
 import { Answer, Problem, TextOut } from "@/services/type";
-import { BlockMath } from 'react-katex';
 import 'katex/dist/katex.min.css';
 import GetTextOut from "@/ui/getTextOut";
 
@@ -25,17 +24,17 @@ export default function ProblemOptions({ props }: Props) {
   };
 
   // ボタン本体
-  const OptionButton = ({ optionIndex, optionText, textOut }:
-    { optionIndex: number, optionText?: string, textOut?: TextOut }) => {
+  const OptionButton = ({ optionIndex, textOut }:
+    { optionIndex: number, textOut: TextOut }) => {
     // ボタン内容
     const ButtonContent = () => {
       const radioChecked = (optionIndex === selectedOption || optionIndex === selectedAnswer)
       return (
         <div className={`relative`}>
           <input type="radio" className="absolute top-0 left-0 m-1 w-3 h-3 md:m-2 md:w-4 md:h-4" checked={radioChecked} readOnly disabled />
-          {/* 選択肢 */}
-          {textOut && <GetTextOut props={{ type: textOut.type, size: textOut.size, text: textOut.text }} />}
-          {optionText && <GetTextOut props={{ type: 'string', size: 'b', text: optionText }} />}
+          <div className={`${textOut.type==='string' && 'py-2'}`}>
+            <GetTextOut props={textOut} />
+          </div>
         </div >
       )
     }
@@ -77,8 +76,8 @@ export default function ProblemOptions({ props }: Props) {
     return (
       <div className="grid gap-2 grid-cols-5">
         {[...Array(10)].map((_, optionIndex) => {
-          const optionText = String(optionIndex);
-          return (<OptionButton key={optionIndex} optionIndex={optionIndex} optionText={optionText} />)
+          const textOut:TextOut ={type:'string', size:'b', text:String(optionIndex)};
+          return (<OptionButton key={optionIndex} optionIndex={optionIndex} textOut={textOut} />);
         })}
       </div>
     );

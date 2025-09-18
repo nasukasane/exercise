@@ -19,7 +19,7 @@ function getExplanationStampUrl(isCorrect: boolean, characterProperty: Character
 
 function RenderText({ textOut }: { textOut: TextOut[] }) {
   return (
-    <div className="pt-4 pb-1 text-sm md:pb-2 md:text-xl">
+    <div className="">
       {textOut.map(({ type, size, text }, index) => {
         return <GetTextOut key={index} props={{type, size, text}}/>;
       })}
@@ -44,10 +44,10 @@ export default function ProblemMain({ props }: Props) {
     const explanationStampUrl = getExplanationStampUrl(isCorrect, characterProperty);
     return (
       <div className={`relative rounded-lg text-sm md:text-xl ${isCorrect ? "bg-blue-200" : "bg-red-200"}`}>
-        <h2 className={`rounded-t-lg p-1 w-full text-base md:text-2xl md:p-2 ${isCorrect ? "bg-blue-300" : "bg-red-300"}`}>
+        <h2 className={`rounded-t-lg p-1 w-full text-base md:text-xl md:p-2 ${isCorrect ? "bg-blue-300" : "bg-red-300"}`}>
           解説
         </h2>
-        <div className="pt-1 md:pt-2">
+        <div className="py-2">
           <RenderText textOut={problem.explanation} />
         </div>
         <div className="absolute right-0 bottom-0 opacity-50 pointer-events-none">
@@ -66,8 +66,10 @@ export default function ProblemMain({ props }: Props) {
 
 
   return (
-    <div className="text-center text-base md:text-2xl">
-      <RenderText textOut = {problem.toSolve} />
+    <div className="text-center">
+      <div className="p-2">
+        <RenderText textOut = {problem.toSolve} />
+      </div>
       {selectedAnswer !== undefined && <Explanation />}
     </div>
   )

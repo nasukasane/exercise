@@ -8,22 +8,28 @@ export default function GetTextOut({ props }: {
   }
 }) {
   const { type, size, text } = props;
-  const textSize =
-    size === 'ss' ? 'text-xs md:text-base' :
-      size === 's' ? 'text-sm md:text-xl' : 'text-base md:text-2xl'
   if (type === 'mathi') {
+    const textSize =
+      size === 'ss' ? 'text-xs md:text-base' :
+      size === 's' ? 'text-sm md:text-lg' : 'text-base md:text-xl'
     return (
       <div className={`${textSize}`}>
         <InlineMath math={text} />
       </div>
     )
   } else if (type === 'mathb') {
+    const textSize =
+      size === 'ss' ? 'text-xs md:text-sm' :
+      size === 's' ? 'text-xs md:text-base' : 'text-sm md:text-lg'
     return (
       <div className={textSize}>
         <BlockMath math={text} />
       </div>
     )
   } else if (type === 'string') {
+    const textSize =
+      size === 'ss' ? 'text-xs md:text-base' :
+      size === 's' ? 'text-sm md:text-lg' : 'text-base md:text-xl'
     return (
       <div className={textSize}>
         {text}

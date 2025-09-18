@@ -140,7 +140,7 @@ export default function ProblemView({ props }: { props: Props }) {
 
   return (
     <Judge props={judgeProps}>
-      <div className="absolute -top-[50px] pt-[40px]  h-screen w-full bg-slate-100 flex flex-col">
+      <div className="absolute -top-[40px] md:-top-[50px] pt-[40px] md:pt-[50px]  h-screen w-full bg-slate-100 flex flex-col">
         <div className="flex-1 overflow-y-auto ">
           {isResult ? <ProblemResult props={problemResultProps} />
             : <ProblemMain props={problemMainProps} />}

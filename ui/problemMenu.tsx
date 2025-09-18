@@ -22,7 +22,7 @@ export default function ProblemMenu() {
       <div className="w-[100px] text-left flex" >
         {chapter.counts.map((countN) => {
           const { chapterN, sectionN, pickN } = problemIndexes[countN];
-          const problemAnswer = chapters[chapterN].sections[sectionN].problems[pickN].answer;
+          const problemAnswer = chapters[chapterN].sections[sectionN].problems[pickN].options.answer;
           if (selectedAnswers[countN] === undefined) {
             return (
               <div className='inline w-6' key={countN}>
@@ -48,7 +48,7 @@ export default function ProblemMenu() {
     )
   }
   return (
-    <div className="text-sm md:text-xl">
+    <div className="text-sm md:text-lg">
       <Menu>
         <MenuButton
           className="items-center rounded-md 
@@ -60,7 +60,7 @@ export default function ProblemMenu() {
           <div className='flex w-[240px] md:w-[400px] '>
             <ChevronDownIcon className="flex-none w-3 fill-gray-800 md:w-6" />
             <div className='flex-auto text-center'>{chapterTitle}</div>
-            <div className='flex-none bg-slate-300 text-xs md:text-lg md:w-20'>残り{remainingProblem}問</div>
+            <div className='flex-none bg-slate-300 text-xs md:text-base md:w-20'>残り{remainingProblem}問</div>
           </div>
         </MenuButton>
 

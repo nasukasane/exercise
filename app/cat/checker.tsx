@@ -81,7 +81,7 @@ export default function Checker({ chapters,  problemIndexes}:
       <p>linearN : {linearN}</p>
       <p>chapter : {chapterN} {chapterTitle}</p>
       <p>section : {sectionN} {sectionTitle}</p>
-      <p>pickN : {pickN} {problem.problemText}</p>
+      <p>pickN : {pickN} {problem.toSolve[0].text}</p>
 
       <div className="my-2 space-x-2">
         linear 

@@ -60,7 +60,7 @@ export default function ProblemView({ props }: { props: Props }) {
     setJudgeOption(selectedOption); //判定画像表示
     setJudgeTimer(judgeTimer); //タイマーID取得（クリック時タイマー解除のために）
     //正解時処理
-    if (selectedOption === problem.options.answer) {
+    if (selectedOption === problem.answer) {
       setWinPerCharacter(winPerCharacter=>{
         const ret = {...winPerCharacter};
         ret[cheerCharacter] += 1;
@@ -82,7 +82,7 @@ export default function ProblemView({ props }: { props: Props }) {
   // 判定表示後後処理
   const afterJudge = (selectedOption: Answer) => {
     setJudgeOption(undefined);
-    if (selectedOption === problem.options.answer) {
+    if (selectedOption === problem.answer) {
       moveView(count + 1);
     }
 

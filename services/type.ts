@@ -9,21 +9,19 @@ export type TextOut ={
 
 export type Problem = {
   toSolve: TextOut[];
-  options: {
-    arrangement: "4x1" | "2x2" | "numpad";
-    answer: Answer;
-    textOuts?: TextOut[];
-  }
+  options?:  TextOut[];
   explanation: TextOut[];
+  arrangement: "4x1" | "2x2" | "numpad";
+  answer: Answer;
 };
 
 export type Section = {
-  sectionTitle: string,
+  title: string,
   pick: number,
   problems: Problem[]
 };
 export type Chapter = {
-  chapterTitle: string,
+  title: string,
   sumPickN: number,
   counts: number[],
   sections: Section[]

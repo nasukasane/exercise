@@ -1,7 +1,7 @@
 {
   "sections": [
     {
-      "sectionTitle": "2×2行列のスカラー倍",
+      "title": "2×2行列のスカラー倍",
       "pick": 1,
       "problems": [
         {
@@ -17,10 +17,6 @@
               "text": "3\\begin{pmatrix} 2 & 1 \\\\ 3 & 0 \\end{pmatrix} = \\begin{pmatrix} * & * \\\\ ? & * \\end{pmatrix}"
             }
           ],
-          "options": {
-            "answer": 9,
-            "arrangement": "numpad"
-          },
           "explanation": [
             {
               "type": "string",
@@ -32,7 +28,10 @@
               "size": "b",
               "text": "k\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = \\begin{pmatrix} ka & kb \\\\ kc & kd \\end{pmatrix}"
             }
-          ]
+          ],
+            "answer": 9,
+            "arrangement": "numpad"
+
         },
         {
           "toSolve": [
@@ -47,10 +46,6 @@
               "text": "3\\begin{pmatrix} 0 & 2 \\\\ 3 & 1 \\end{pmatrix} = \\begin{pmatrix} * & * \\\\ * & ? \\end{pmatrix}"
             }
           ],
-          "options": {
-            "answer": 3,
-            "arrangement": "numpad"
-          },
           "explanation": [
             {
               "type": "string",
@@ -62,12 +57,14 @@
               "size": "b",
               "text": "k\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix} = \\begin{pmatrix} ka & kb \\\\ kc & kd \\end{pmatrix}"
             }
-          ]
+          ],
+          "answer": 3,
+          "arrangement": "numpad"
         }
       ]
     },
     {
-      "sectionTitle": "3×2行列のスカラー倍",
+      "title": "3×2行列のスカラー倍",
       "pick": 1,
       "problems": [
         {
@@ -83,10 +80,6 @@
               "text": "2\\begin{pmatrix} 2 & 3 \\\\ 2.5 & 4  \\\\ 1 & 1.5 \\end{pmatrix} = \\begin{pmatrix} * & ? \\\\ * & * \\\\ * & * \\end{pmatrix}"
             }
           ],
-          "options": {
-            "answer": 6,
-            "arrangement": "numpad"
-          },
           "explanation": [
             {
               "type": "string",
@@ -98,7 +91,9 @@
               "size": "b",
               "text": "k\\begin{pmatrix} a & b \\\\ c & d  \\\\ e & f \\end{pmatrix} = \\begin{pmatrix} ka & kb \\\\ kc & kd \\\\ ke & kf \\end{pmatrix}"
             }
-          ]
+          ],
+          "answer": 6,
+          "arrangement": "numpad"
         },
         {
           "toSolve": [
@@ -113,10 +108,6 @@
               "text": "2\\begin{pmatrix} 3 & 2 \\\\ 3.5 & 1  \\\\ 2.5 & 4 \\end{pmatrix} = \\begin{pmatrix} * & * \\\\ * & * \\\\ ? & * \\end{pmatrix}"
             }
           ],
-          "options": {
-            "answer": 5,
-            "arrangement": "numpad"
-          },
           "explanation": [
             {
               "type": "string",
@@ -128,7 +119,9 @@
               "size": "b",
               "text": "k\\begin{pmatrix} a & b \\\\ c & d  \\\\ e & f \\end{pmatrix} = \\begin{pmatrix} ka & kb \\\\ kc & kd \\\\ ke & kf \\end{pmatrix}"
             }
-          ]
+          ],
+          "answer": 5,
+          "arrangement": "numpad"
         }
       ]
     }

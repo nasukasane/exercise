@@ -40,7 +40,7 @@ export default function ProblemMain({ props }: Props) {
 
 
   function Explanation() {
-    const isCorrect = (selectedAnswer === problem.options.answer);
+    const isCorrect = (selectedAnswer === problem.answer);
     const explanationStampUrl = getExplanationStampUrl(isCorrect, characterProperty);
     return (
       <div className={`relative rounded-lg text-sm md:text-xl ${isCorrect ? "bg-blue-200" : "bg-red-200"}`}>

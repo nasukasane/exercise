@@ -32,7 +32,7 @@ export default function ProblemOptions({ props }: Props) {
       return (
         <div className={`relative`}>
           <input type="radio" className="absolute top-0 left-0 m-1 w-3 h-3 md:m-2 md:w-4 md:h-4" checked={radioChecked} readOnly disabled />
-          <div className={`${textOut.type==='string' && 'py-2'}`}>
+          <div className={`${textOut.type === 'string' && 'py-2'}`}>
             <GetTextOut props={textOut} />
           </div>
         </div >
@@ -58,7 +58,7 @@ export default function ProblemOptions({ props }: Props) {
           disabled
           className={
             `rounded-lg border-2 text-gray-400
-              ${(optionIndex === problem.options.answer) ?
+              ${(optionIndex === problem.answer) ?
               'bg-green-300 border-green-500 text-gray-800' :
               optionIndex === selectedAnswer ?
                 'bg-red-200 border-red-300' : 'bg-gray-200 border-gray-400'}
@@ -71,29 +71,26 @@ export default function ProblemOptions({ props }: Props) {
   }
 
   // 4択の場合
-  if (problem.options.arrangement === "numpad") {
+  if (problem.arrangement === "numpad") {
     // numpadの場合
     return (
       <div className="grid gap-2 grid-cols-5">
         {[...Array(10)].map((_, optionIndex) => {
-          const textOut:TextOut ={type:'string', size:'b', text:String(optionIndex)};
+          const textOut: TextOut = { type: 'string', size: 'b', text: String(optionIndex) };
           return (<OptionButton key={optionIndex} optionIndex={optionIndex} textOut={textOut} />);
         })}
       </div>
     );
-  } else{
-    const textOuts = problem.options.textOuts;
-    if (textOuts) {
-      return (
-        <div className={`${problem.options.arrangement === "2x2" ?
-          "grid gap-2 grid-cols-2" :
-          "grid grid-cols-1"}`}>
-          {textOuts.map((textOut, optionIndex) => {
-            return (<OptionButton key={optionIndex} optionIndex={optionIndex} textOut={textOut} />)
-          })}
-        </div>
-      );
-    }
+  } else if (problem.options) {
+    return (
+      <div className={`${problem.arrangement === "2x2" ?
+        "grid gap-2 grid-cols-2" :
+        "grid grid-cols-1"}`}>
+        {problem.options.map((textOut, optionIndex) => {
+          return (<OptionButton key={optionIndex} optionIndex={optionIndex} textOut={textOut} />)
+        })}
+      </div>
+    );
   }
 
 }

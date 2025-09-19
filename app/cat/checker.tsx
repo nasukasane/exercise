@@ -30,8 +30,8 @@ export default function Checker({ chapters,  problemIndexes}:
   const chapter = chapters[chapterN];
   const section = chapter.sections[sectionN];
   const problem = section.problems[pickN];
-  const chapterTitle = chapter.chapterTitle
-  const sectionTitle = section.sectionTitle
+  const chapterTitle = chapter.title;
+  const sectionTitle = section.title;
 
   const chapterUp = () => {
     if (chapterN < chapters.length - 1) {

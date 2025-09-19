@@ -55,7 +55,7 @@ export default function ProblemResult({ props }: Props) {
       chapterDone[chapterN] = false;
       return sum;
     } else {
-      const correct = Number(selectedAnswers[i] === chapters[chapterN].sections[sectionN].problems[pickN].options.answer)
+      const correct = Number(selectedAnswers[i] === chapters[chapterN].sections[sectionN].problems[pickN].answer)
       chapterCorrect[chapterN] += correct
       return sum + correct;
     }
@@ -111,7 +111,7 @@ export default function ProblemResult({ props }: Props) {
               onClick={() => { jumpChapter(chapter) }}
               disabled={chapterDone[chapterN]}
             >
-              <div className="flex-auto mr-2">{chapter.chapterTitle}</div>
+              <div className="flex-auto mr-2">{chapter.title}</div>
               <div className="w-[100px] text-center md:w-[130px]">
                 {chapterDone[chapterN] ?
                   `${chapterCorrect[chapterN]}／${chapters[chapterN].sumPickN}`

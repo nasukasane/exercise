@@ -13,7 +13,7 @@ export default function ProblemMenu() {
   }
   const { count, problemLength, isResult, selectedAnswers, problemIndexes, chapters, moveView, jumpChapter } = menuVariables;
   const chapterN0 = isResult ? undefined : problemIndexes[count].chapterN;
-  const chapterTitle = typeof chapterN0 === "number" ? chapters[chapterN0].chapterTitle : "リザルト";
+  const chapterTitle = typeof chapterN0 === "number" ? chapters[chapterN0].title : "リザルト";
   const allAnswered = selectedAnswers.every(a => { return a !== undefined });
   const remainingProblem = selectedAnswers.filter(element => element === undefined).length;
 
@@ -22,7 +22,7 @@ export default function ProblemMenu() {
       <div className="w-[100px] text-left flex" >
         {chapter.counts.map((countN) => {
           const { chapterN, sectionN, pickN } = problemIndexes[countN];
-          const problemAnswer = chapters[chapterN].sections[sectionN].problems[pickN].options.answer;
+          const problemAnswer = chapters[chapterN].sections[sectionN].problems[pickN].answer;
           if (selectedAnswers[countN] === undefined) {
             return (
               <div className='inline w-6' key={countN}>
@@ -84,7 +84,7 @@ export default function ProblemMenu() {
                 <button onClick={() => jumpChapter(chapter)}
                   className="group flex w-full items-center gap-2 rounded-lg py-2 px-1 hover:bg-blue-200 content-center md:px-3">
                   <div className="w-[10px] md:w-[20px]" >{chapterN === chapterN0 && <ChevronRightIcon className='w-5' />}</div>
-                  <div className="w-[200px] text-left md:w-[380px]">{chapter.chapterTitle}</div>
+                  <div className="w-[200px] text-left md:w-[380px]">{chapter.title}</div>
                   <Marks key={chapterN} chapter={chapter} />
                 </button>
               </MenuItem>
